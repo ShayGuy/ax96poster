@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="Shay Guy">
+<style>
+.char {
+  fill:white;
+  stroke:black;
+  stroke-width:1;
+  fill-opacity:0.5;
+  stroke-opacity:0.9;
+}
+</style>
+<title>Loads of Anime</title>
+<script>
+
+var ns = "http://www.w3.org/2000/svg";
+
+function makeCircle(area)
+{
+  var c = document.createElementNS(ns, "circle");
+  var coords = area.coords.split(",");
+
+  c.setAttribute("cx", coords[0]);
+  c.setAttribute("cy", coords[1]);
+  c.setAttribute("r", coords[2]);
+
+  c.className.baseVal = "char";
+
+  var t = document.createElementNS(ns, "title");
+  t.innerHTML = area.title;
+  c.appendChild(t);
+
+  return c;
+}
+
+function makeRect(area)
+{
+  var r = document.createElementNS(ns, "rect");
+  var coords = area.coords.split(",");
+
+  r.setAttribute("x", coords[0]);
+  r.setAttribute("y", coords[1]);
+
+  r.setAttribute("width", coords[2] - coords[0]);
+  r.setAttribute("height", coords[3] - coords[1]);
+
+  r.className.baseVal = "char";
+
+  var t = document.createElementNS(ns, "title");
+  t.innerHTML = area.title;
+  r.appendChild(t);
+
+  return r;
+}
+
+function makePoly(area)
+{
+  var p = document.createElementNS(ns, "polygon");
+  var coords = area.coords.split(",");
+
+  var coords2 = [];
+  coords2.push(coords[0]);
+  for(var i = 1; i < coords.length; i++)
+  {
+    coords2.push(i & 1 ? "," : " ");
+    coords2.push(coords[i]);
+  }
+
+  p.setAttribute("points", coords2.join(""));
+
+  p.className.baseVal = "char";
+
+  var t = document.createElementNS(ns, "title");
+  t.innerHTML = area.title;
+  p.appendChild(t);
+
+  return p;
+}
+
+function makeSVG()
+{
+  var container = document.getElementById("container");
+  var image = container.firstElementChild;
+  var map = document.getElementsByName("animemap")[0];
+  var svg = document.createElementNS(ns, "svg");
+
+  container.appendChild(svg);
+
+  svg.setAttribute("width", image.width);
+  svg.setAttribute("height", image.height);
+  svg.setAttribute("id", "animesvg");
+  svg.style.position = "relative";
+  svg.style.visibility = "hidden";
+
+  var children = map.children;
+  for(var i = 0; i < children.length; i++)
+  {
+    var area = children[i];
+    var type = area.shape;
+    if(type==="circle")
+    {
+      svg.appendChild(makeCircle(area));
+    }
+    else if(type==="rect")
+    {
+      svg.appendChild(makeRect(area));
+    }
+    else if(type==="poly")
+    {
+      svg.appendChild(makePoly(area));
+    }
+  }
+}
+
+function toggleSVG()
+{
+  var svg = document.getElementById("animesvg");
+  var v = svg.style.visibility;
+  svg.style.visibility = "visible" === v ? "hidden" : "visible";
+}
+
+window.onload = makeSVG;
+
+</script>
+</head>
+
+<body>
+
+<button type="button" onclick="toggleSVG()">Highlight labeled characters</button>
+
+<div id="container">
+<img src="img/loadsofanime.jpg" style="position:absolute;" usemap="#animemap"><!--<img src="./loadsofanime_files/loadsofanime.jpg" style="position:absolute;" usemap="#animemap">-->
+</div>
+
+<map name="animemap">
+  <area shape="rect" title="Captain Catty Nebulart from Gall Force 3: Stardust War" coords="2322,1978,2360,2050" />
+  <area shape="rect" title="Amy from Gall Force 2: Destruction" coords="1887,1986,1930,2053" />
+  <area shape="rect" title="Spea from Gall Force 2: Destruction" coords="1844,1986,1884,2052" />
+  <area shape="rect" title="Shildy from Gall Force 2: Destruction" coords="1976,1985,2017,2054" />
+  <area shape="rect" title="The Boy from Gall Force: Eternal Story" coords="2283,1979,2319,2053" />
+  <area shape="rect" title="Dorn's aides from Gall Force: Eternal Story" coords="1720,1987,1796,2051" />
+  <area shape="rect" title="Commander Dorn/Dohn from Gall Force: Eternal Story" coords="1643,1987,1717,2051" />
+  <area shape="rect" title="Eluza from Gall Force: Eternal Story" coords="2102,1981,2147,2053" />
+  <area shape="rect" title="Patty from Gall Force: Eternal Story" coords="2244,1979,2280,2053" />
+  <area shape="rect" title="Lufy from Gall Force: Eternal Story" coords="2021,1981,2060,2053" />
+  <area shape="rect" title="Pony from Gall Force: Eternal Story" coords="2063,1981,2099,2053" />
+  <area shape="rect" title="Rabby from Gall Force: Eternal Story" coords="2195,1979,2241,2053" />
+  <area shape="rect" title="Rumy from Gall Force: Eternal Story" coords="2150,1996,2192,2053" />
+  <area shape="poly" title="Muzan from Dark Angel" coords="1237,2261,1181,2261,1181,2330,1228,2330" />
+  <area shape="rect" title="Sekka from Dark Angel" coords="1162,2274,1176,2289" />
+  <area shape="rect" title="Sayan Sharga from Dark Angel" coords="1067,2261,1106,2337" />
+  <area shape="rect" title="Fatima Tower from The Five Star Stories" coords="701,2199,746,2245" />
+  <area shape="rect" title="Fatima Kale from The Five Star Stories" coords="1621,2198,1657,2262" />
+  <area shape="rect" title="Lady Spector from The Five Star Stories" coords="3042,2187,3078,2267" />
+  <area shape="rect" title="Fatima Kratoughma/La Krautoma from The Five Star Stories" coords="882,2198,925,2254" />
+  <area shape="rect" title="Fatima Euphrosyne/Aprochune/Aphrocheene from The Five Star Stories" coords="2702,2201,2739,2265" />
+  <area shape="rect" title="Fatima Phileto from The Five Star Stories" coords="2621,2207,2651,2264" />
+  <area shape="rect" title="Fatima Soltia from The Five Star Stories" coords="2919,2199,2961,2261" />
+  <area shape="rect" title="Fatima Aglaia from The Five Star Stories" coords="1826,2196,1875,2260" />
+  <area shape="rect" title="Fatima Pasithea from The Five Star Stories" coords="1530,2198,1570,2261" />
+  <area shape="rect" title="Fatima Shelasta from The Five Star Stories" coords="1422,2196,1465,2261" />
+  <area shape="rect" title="Fatima Thaleia from The Five Star Stories" coords="1327,2198,1365,2264" />
+  <area shape="rect" title="Fatima Kclappa from The Five Star Stories" coords="1933,2198,1977,2255" />
+  <area shape="rect" title="Fatima Spaluta from The Five Star Stories" coords="1287,2201,1324,2264" />
+  <area shape="rect" title="Fatima Queen from The Five Star Stories" coords="986,2197,1028,2252" />
+  <area shape="rect" title="Upandla Raymu from The Five Star Stories" coords="1140,2197,1193,2258" />
+  <area shape="rect" title="Colus VI (alias Label Judah) from The Five Star Stories" coords="3453,2186,3490,2254" />
+  <area shape="rect" title="Daizina Meistner from The Five Star Stories" coords="3493,2194,3525,2255" />
+  <area shape="rect" title="Fatima Bacstual from The Five Star Stories" coords="2999,2200,3039,2267" />
+  <area shape="rect" title="Dr. Morard Carbyte from The Five Star Stories" coords="3126,2193,3172,2260" />
+  <area shape="rect" title="Dr. Prisen Corks from The Five Star Stories" coords="749,2199,788,2252" />
+  <area shape="rect" title="Dr. Steel Koop from The Five Star Stories" coords="830,2200,879,2254" />
+  <area shape="rect" title="Fatima Ulicul from The Five Star Stories" coords="3418,2200,3450,2253" />
+  <area shape="rect" title="Fatima Tisphone from The Five Star Stories" coords="2351,2204,2384,2258" />
+  <area shape="rect" title="Fatima Eatta from The Five Star Stories" coords="2434,2203,2475,2269" />
+  <area shape="rect" title="Ritsuko &quot;Qukey&quot; Zanda from The Five Star Stories" coords="1878,2194,1930,2255" />
+  <area shape="rect" title="Mishalu Ha Lonn from The Five Star Stories" coords="1980,2195,2032,2271" />
+  <area shape="rect" title="Hind Kill from The Five Star Stories" coords="1368,2195,1419,2261" />
+  <area shape="rect" title="Poesche Nomien from The Five Star Stories" coords="1468,2198,1527,2261" />
+  <area shape="rect" title="Nu. Suoad Graphight from The Five Star Stories" coords="1573,2198,1618,2268" />
+  <area shape="rect" title="State Ballo Kaiedia from The Five Star Stories" coords="1660,2195,1716,2262" />
+  <area shape="rect" title="Fatima Potar from The Five Star Stories" coords="1719,2201,1760,2254" />
+  <area shape="poly" title="Spector from The Five Star Stories" coords="1825,2267,1825,2192,1776,2192,1776,2201,1763,2201,1763,2273,1800,2258,1802,2267" />
+  <area shape="rect" title="Bijotorn Corlala from The Five Star Stories" coords="1240,2198,1284,2261" />
+  <area shape="rect" title="Deimos Hierarchy from The Five Star Stories" coords="1031,2197,1086,2257" />
+  <area shape="rect" title="Fatima Palsuet from The Five Star Stories" coords="791,2200,827,2252" />
+  <area shape="rect" title="Fatima Alecto from The Five Star Stories" coords="2964,2199,2996,2265" />
+  <area shape="rect" title="Fatima Megaella from The Five Star Stories" coords="3332,2200,3368,2257" />
+  <area shape="rect" title="Fatima Achilles from The Five Star Stories" coords="3528,2186,3577,2255" />
+  <area shape="rect" title="Fatima SSizz from The Five Star Stories" coords="3580,2195,3624,2256" />
+  <area shape="rect" title="Chao from Dark Angel" coords="341,2262,385,2333" />
+  <area shape="rect" title="Delphina from Dark Angel" coords="756,2255,827,2323" />
+  <area shape="rect" title="Kei from Dark Angel" coords="983,2263,1020,2325" />
+  <area shape="rect" title="Ran from Dark Angel" coords="388,2261,425,2333" />
+  <area shape="rect" title="Gan from Dark Angel" coords="428,2256,545,2333" />
+  <area shape="rect" title="Shiki from Dark Angel" coords="599,2312,622,2333" />
+  <area shape="poly" title="Sen from Dark Angel" coords="1274,2264,1291,2330,1229,2330,1238,2264" />
+  <area shape="poly" title="En from Dark Angel" coords="1109,2261,1161,2261,1161,2292,1179,2292,1179,2332,1168,2332,1168,2339,1109,2339" />
+  <area shape="rect" title="Bee from Dark Angel" coords="625,2273,636,2295" />
+  <area shape="poly" title="Shou from Dark Angel" coords="639,2255,696,2255,696,2335,628,2335,628,2298,639,2298" />
+  <area shape="rect" title="Soo from Dark Angel" coords="830,2257,867,2337" />
+  <area shape="rect" title="Pan from Dark Angel" coords="870,2257,920,2335" />
+  <area shape="poly" title="Leen from Dark Angel" coords="548,2256,624,2256,624,2311,598,2311,598,2335,548,2335" />
+  <area shape="rect" title="Tou from Dark Angel" coords="923,2257,980,2325" />
+  <area shape="poly" title="Kyo from Dark Angel" coords="715,2248,755,2277,745,2248" />
+  <area shape="poly" title="Dark from Dark Angel" coords="698,2259,698,2325,750,2325,753,2278,723,2255" />
+  <area shape="poly" title="Landwand Spaccorn from The Five Star Stories" coords="2350,2188,2311,2188,2293,2209,2293,2269,2350,2269" />
+  <area shape="rect" title="Falk U. Rognar from The Five Star Stories" coords="2387,2198,2431,2268" />
+  <area shape="rect" title="Leopard Crytharis from The Five Star Stories" coords="2478,2188,2526,2269" />
+  <area shape="rect" title="Urazen Sie from The Five Star Stories" coords="2576,2194,2618,2264" />
+  <area shape="rect" title="Sharie Randers Krotenschwanz from The Five Star Stories" coords="2654,2195,2699,2265" />
+  <area shape="rect" title="Lie Ex from The Five Star Stories" coords="2742,2194,2790,2258" />
+  <area shape="rect" title="Mishalu Ha Lonn from The Five Star Stories" coords="2793,2194,2834,2258" />
+  <area shape="rect" title="Dippa Dropps from The Five Star Stories" coords="2837,2194,2869,2273" />
+  <area shape="rect" title="Iemarah Lout Jajas from The Five Star Stories" coords="2874,2190,2916,2260" />
+  <area shape="rect" title="Jhon Weinziel from The Five Star Stories" coords="3081,2187,3123,2260" />
+  <area shape="rect" title="Colus III from The Five Star Stories" coords="3371,2178,3415,2253" />
+  <area shape="rect" title="Fatima Paracha from The Five Star Stories" coords="3670,2198,3708,2261" />
+  <area shape="rect" title="Fatima Syucha from The Five Star Stories" coords="3711,2198,3746,2261" />
+  <area shape="rect" title="Lader VIII from The Five Star Stories" coords="928,2198,983,2254" />
+  <area shape="poly" title="Aisha Codante from The Five Star Stories" coords="2238,2197,2264,2169,2292,2208,2292,2274,2256,2274,2256,2262,2238,2262" />
+  <area shape="rect" title="Voards Viewlard from The Five Star Stories" coords="3290,2186,3329,2257" />
+  <area shape="rect" title="Ladios Sopp from The Five Star Stories" coords="3211,2185,3252,2258" />
+  <area shape="poly" title="Amaterasu-no-Mikado from The Five Star Stories" coords="2139,2197,2139,2261,2111,2261,2111,2279,2083,2279,2083,2190,2128,2190,2128,2197" />
+  <area shape="poly" title="Fatima Est from The Five Star Stories" coords="3627,2198,3669,2198,3669,2273,3641,2273,3627,2260" />
+  <area shape="rect" title="Fatima Teata from The Five Star Stories" coords="2529,2206,2573,2266" />
+  <area shape="rect" title="Fatima Atropos from The Five Star Stories" coords="2140,2197,2181,2259" />
+  <area shape="rect" title="Fatima Clotho from The Five Star Stories" coords="2184,2197,2235,2259" />
+  <area shape="rect" title="Dr. Chrome Ballanche from The Five Star Stories" coords="1089,2197,1137,2258" />
+  <area shape="rect" title="Dominique from Megazone 23 - Part 3" coords="1667,2351,1706,2430" />
+  <area shape="rect" title="Borno from Megazone 23 - Part 3" coords="1709,2343,1749,2430" />
+  <area shape="rect" title="Sion from Megazone 23 - Part 3" coords="1531,2332,1580,2429" />
+  <area shape="rect" title="Jacob/Yacob Halm from Megazone 23 - Part 3" coords="1791,2342,1835,2430" />
+  <area shape="rect" title="Simka Müller/Miura Simuka from Megazone 23 - Part 3" coords="1752,2343,1788,2430" />
+  <area shape="rect" title="Lisa/Risa from Megazone 23 - Part 3" coords="1363,2334,1399,2394" />
+  <area shape="rect" title="Lester from Megazone 23 - Part 3" coords="1489,2322,1528,2430" />
+  <area shape="rect" title="Miki from Megazone 23 - Part 3" coords="1446,2345,1486,2429" />
+  <area shape="rect" title="Akira from Megazone 23 - Part 3" coords="1405,2338,1443,2395" />
+  <area shape="rect" title="Jace/Jayce/Jeys from Megazone 23 - Part 2 - Please Give Me Your Secret" coords="935,2328,972,2431" />
+  <area shape="rect" title="Garam from Megazone 23 - Part 2 - Please Give Me Your Secret" coords="975,2332,1013,2431" />
+  <area shape="rect" title="Cindy from Megazone 23 - Part 2 - Please Give Me Your Secret" coords="1060,2340,1099,2430" />
+  <area shape="rect" title="Lightning from Megazone 23 - Part 2 - Please Give Me Your Secret" coords="1016,2328,1057,2431" />
+  <area shape="rect" title="Dumpi/Dump from Megazone 23 - Part 2 - Please Give Me Your Secret" coords="1102,2340,1166,2430" />
+  <area shape="rect" title="Yui Takanaka from Megazone 23 - Part 2 - Please Give Me Your Secret" coords="1169,2333,1206,2430" />
+  <area shape="rect" title="Guts from Megazone 23 - Part 2 - Please Give Me Your Secret" coords="870,2338,932,2395" />
+  <area shape="rect" title="Shogo Yahagi from Megazone 23 - Part 2 - Please Give Me Your Secret" coords="1209,2331,1245,2430" />
+  <area shape="poly" title="Gunhed from Gunhed" coords="3735,646,3735,748,3607,746,3567,725,3479,732,3483,764,3545,764,3545,823,3452,823,3452,854,3670,840,3669,912,3614,912,3614,943,3705,945,3742,855,3823,828,3732,599,3678,585,3623,647" />
+  <area shape="rect" title="Eleven from Gunhed" coords="3623,846,3663,907" />
+  <area shape="rect" title="Seven from Gunhed" coords="3494,766,3540,819" />
+  <area shape="rect" title="Sergeant Nim from Gunhed" coords="3638,660,3682,738" />
+  <area shape="rect" title="Bebe from Gunhed" coords="3685,650,3729,741" />
+  <area shape="poly" title="Brooklyn from Gunhed" coords="3638,659,3630,742,3581,731,3576,675,3602,642" />
+  <area shape="rect" title="Miki Emoto from Cream Lemon: Lemon Angel" coords="2275,1414,2311,1490" />
+  <area shape="rect" title="Erika Shima from Cream Lemon: Lemon Angel" coords="2235,1414,2272,1490" />
+  <area shape="poly" title="Nurse Angel from Nurse Angel Ririka SOS" coords="2813,1342,2856,1342,2856,1346,2880,1346,2880,1422,2835,1422,2835,1414,2813,1414" />
+  <area shape="rect" title="Nozomu Kanou from Nurse Angel Ririka SOS" coords="3072,1344,3109,1408" />
+  <area shape="rect" title="Seiya Uzaki from Nurse Angel Ririka SOS" coords="3033,1347,3069,1413" />
+  <area shape="rect" title="Miyuki Kuwano from Nurse Angel Ririka SOS" coords="2997,1347,3030,1413" />
+  <area shape="rect" title="Karin Mizuhara from Nurse Angel Ririka SOS" coords="2961,1347,2994,1413" />
+  <area shape="rect" title="Anna Kazami from Nurse Angel Ririka SOS" coords="2924,1349,2958,1419" />
+  <area shape="rect" title="Ririka Moriya from Nurse Angel Ririka SOS" coords="2881,1347,2921,1421" />
+  <area shape="poly" title="Dodo from Licca: Fushigi na Fushigi na Yunia Monogatari" coords="3194,1393,3216,1394,3216,1406,3203,1419,3183,1419,3183,1404" />
+  <area shape="poly" title="Girl from Licca: Fushigi na Fushigi na Yunia Monogatari" coords="3154,1344,3193,1344,3193,1391,3182,1403,3182,1419,3154,1419" />
+  <area shape="rect" title="Licca Kayama from Licca: Fushigi na Fushigi na Yunia Monogatari" coords="3112,1344,3151,1423" />
+  <area shape="rect" title="Kurtz/Cotes Gardner from Sonic Soldier Borgman 2: New Century 2058" coords="2776,927,2816,1006" />
+  <area shape="rect" title="Ken from Sonic Soldier Borgman 2: New Century 2058" coords="2732,929,2773,1009" />
+  <area shape="rect" title="Sarah Cresse from Sonic Soldier Borgman 2: New Century 2058" coords="2689,931,2729,1012" />
+  <area shape="rect" title="Parker from Space Family Carlvinson" coords="2907,450,2951,483" />
+  <area shape="rect" title="Mother from Space Family Carlvinson" coords="2886,486,2961,525" />
+  <area shape="rect" title="Father from Space Family Carlvinson" coords="2833,455,2883,522" />
+  <area shape="poly" title="Maggie from Venus Wars" coords="209,1422,230,1407,254,1416,248,1478,232,1483" />
+  <area shape="poly" title="S.P. Icegal/C-Seagull from K.O. Beast" coords="2370,2261,2414,2286,2414,2343,2346,2343,2346,2333,2335,2333,2335,2285" />
+  <area shape="rect" title="V-Darn from K.O. Beast" coords="2137,2262,2198,2337" />
+  <area shape="rect" title="V-Sion from K.O. Beast" coords="2201,2263,2253,2337" />
+  <area shape="rect" title="Uni/Yuni Charm Password from K.O. Beast" coords="2083,2280,2134,2337" />
+  <area shape="rect" title="Mekka Mannen/Tuttle Millen from K.O. Beast" coords="1856,2263,1918,2337" />
+  <area shape="rect" title="Mei Mer from K.O. Beast" coords="1980,2274,2029,2337" />
+  <area shape="rect" title="Bud Mint from K.O. Beast" coords="1921,2258,1977,2337" />
+  <area shape="rect" title="Wan Derbard from K.O. Beast" coords="2032,2274,2080,2337" />
+  <area shape="rect" title="Althea from Good Morning Althea" coords="3197,2332,3243,2423" />
+  <area shape="rect" title="Galory Cherrowick from Good Morning Althea" coords="3246,2331,3295,2423" />
+  <area shape="rect" title="Akira Inugami from Wolf Guy" coords="2405,538,2443,614" />
+  <area shape="rect" title="Hu Ssu from Wolf Guy" coords="2366,541,2402,608" />
+  <area shape="rect" title="Mai Tachibana from Explorer Woman Ray" coords="3344,2337,3383,2422" />
+  <area shape="rect" title="Mami Tachibana from Explorer Woman Ray" coords="3386,2337,3421,2390" />
+  <area shape="rect" title="Rayna &quot;Ray&quot; Kizuki from Explorer Woman Ray" coords="3298,2334,3341,2423" />
+  <area shape="rect" title="Prince Demand/Demande/Dimande/Diamond from Sailor Moon" coords="2993,1499,3038,1590" />
+  <area shape="rect" title="Pitt from Fortune Quest" coords="3071,2062,3102,2123" />
+  <area shape="rect" title="Yuria/Julia from Fortune Quest" coords="3026,2053,3068,2125" />
+  <area shape="rect" title="Shiori Nagura from Metal Skin Panic MADOX-01" coords="2849,602,2886,661" />
+  <area shape="rect" title="Koji Sugimoto from Metal Skin Panic MADOX-01" coords="2889,598,2931,655" />
+  <area shape="poly" title="Latina Ascot from Hi-Speed Jecy" coords="235,2130,235,2194,194,2194,190,2146,200,2130" />
+  <area shape="rect" title="Paolon from Hi-Speed Jecy" coords="383,2126,417,2186" />
+  <area shape="rect" title="Tiana from Hi-Speed Jecy" coords="239,2130,278,2192" />
+  <area shape="rect" title="Jecy Moore from Hi-Speed Jecy" coords="281,2125,323,2192" />
+  <area shape="rect" title="Reverend Falk Green from Hi-Speed Jecy" coords="326,2123,373,2186" />
+  <area shape="rect" title="Misuzu from Urusei Yatsura" coords="1530,1349,1564,1421" />
+  <area shape="rect" title="Flower Shop Girl from Urusei Yatsura" coords="1495,1347,1527,1421" />
+  <area shape="rect" title="Perm from Urusei Yatsura" coords="673,1346,712,1434" />
+  <area shape="rect" title="Megane from Urusei Yatsura" coords="715,1346,748,1429" />
+  <area shape="rect" title="Chibi from Urusei Yatsura" coords="751,1351,790,1432" />
+  <area shape="rect" title="Kakugari from Urusei Yatsura" coords="793,1351,822,1433" />
+  <area shape="poly" title="Deunan Knute from Appleseed" coords="3648,1556,3693,1551,3704,1626,3649,1610" />
+  <area shape="poly" title="Briareos Hecatonchires from Appleseed" coords="3707,1631,3754,1643,3752,1611,3785,1592,3763,1534,3694,1538" />
+  <area shape="circle" title="MS-07B Gouf from Mobile Suit Gundam" coords="131,133,15" />
+  <area shape="rect" title="Unnamed (?) Anaheim Electronics employees from Mobile Suit Gundam 0083: Stardust Memory" coords="1504,1267,1701,1339" />
+  <area shape="rect" title="Poral Guilish from Mobile Suit Gundam 0083: Stardust Memory" coords="1704,1266,1740,1339" />
+  <area shape="rect" title="Manuela Panopa from Mobile Suit Gundam F91" coords="1428,1266,1462,1341" />
+  <area shape="rect" title="Migen Maujin from Mobile Suit Gundam F91" coords="1259,1274,1295,1345" />
+  <area shape="rect" title="Nanto Roos from Mobile Suit Gundam F91" coords="1343,1264,1382,1326" />
+  <area shape="poly" title="Gruce Erras from Mobile Suit Gundam F91" coords="1298,1265,1298,1347,1334,1347,1341,1314,1341,1265" />
+  <area shape="rect" title="Sylia Stingray (suit for secret meeting with Fargo in episode 5) from Bubblegum Crisis" coords="1385,1906,1425,1983" />
+  <area shape="rect" title="Relena Darlian from Mobile Suit Gundam Wing" coords="2758,1264,2791,1339" />
+  <area shape="poly" title="Ivan Paserov from Mobile Suit Gundam 0083: Stardust Memory" coords="1881,1267,1925,1267,1925,1355,1888,1355,1888,1341,1881,1341" />
+  <area shape="poly" title="Groucho-type Bugrom from El-Hazard: The Magnificent World" coords="3521,1746,3511,1784,3511,1820,3586,1820,3565,1745" />
+  <area shape="poly" title="Zeppo-type Bugrom from El-Hazard: The Magnificent World" coords="3453,1741,3423,1784,3422,1821,3509,1821,3510,1786,3482,1740" />
+  <area shape="poly" title="Gummo-type Bugrom from El-Hazard: The Magnificent World" coords="3342,1739,3401,1738,3422,1766,3421,1824,3329,1825,3335,1781,3327,1764" />
+  <area shape="poly" title="Harpo-type Bugrom from El-Hazard: The Magnificent World" coords="3235,1775,3249,1740,3314,1739,3333,1782,3326,1826,3302,1803,3257,1815" />
+  <area shape="poly" title="Groucho-type Bugrom from El-Hazard: The Magnificent World" coords="3192,1750,3219,1749,3254,1816,3171,1819,3178,1760" />
+  <area shape="poly" title="Chico-type Bugrom from El-Hazard: The Magnificent World" coords="3091,1718,3161,1701,3194,1703,3215,1717,3176,1758,3168,1821,3117,1822,3110,1759,3091,1739" />
+  <area shape="poly" title="Zeppo-type Bugrom from El-Hazard: The Magnificent World" coords="3044,1804,3044,1752,3068,1741,3090,1741,3108,1761,3112,1821,3072,1821,3072,1803" />
+  <area shape="poly" title="Gummo-type Bugrom from El-Hazard: The Magnificent World" coords="2806,1737,2787,1771,2787,1799,2780,1803,2779,1825,2830,1825,2830,1821,2873,1821,2871,1762,2850,1738" />
+  <area shape="poly" title="Groucho-type Bugrom from El-Hazard: The Magnificent World" coords="2713,1755,2712,1783,2735,1782,2749,1797,2741,1831,2778,1831,2779,1761,2763,1755" />
+  <area shape="poly" title="Harpo-type Bugrom from El-Hazard: The Magnificent World" coords="2634,1741,2601,1791,2612,1825,2710,1828,2710,1774,2690,1741" />
+  <area shape="poly" title="Margaret-type Bugrom from El-Hazard: The Magnificent World" coords="2501,1826,2501,1778,2512,1778,2513,1740,2585,1738,2607,1821,2590,1820,2585,1792,2518,1816,2523,1826" />
+  <area shape="rect" title="Groucho-type Bugrom from El-Hazard: The Magnificent World" coords="2440,1764,2498,1826" />
+  <area shape="poly" title="Harpo-type Bugrom from El-Hazard: The Magnificent World" coords="1599,1730,1581,1777,1581,1805,1611,1832,1657,1832,1648,1771,1663,1765,1643,1730" />
+  <area shape="poly" title="Zeppo-type Bugrom from El-Hazard: The Magnificent World" coords="1532,1831,1496,1798,1503,1764,1539,1739,1569,1751,1580,1781,1580,1808,1547,1831" />
+  <area shape="rect" title="Gummo-type Bugrom from El-Hazard: The Magnificent World" coords="1434,1747,1491,1833" />
+  <area shape="rect" title="Ifurita from El-Hazard: The Wanderers" coords="1400,1758,1431,1833" />
+  <area shape="rect" title="Groucho-type Bugrom from El-Hazard: The Magnificent World" coords="1338,1757,1391,1813" />
+  <area shape="rect" title="Margaret-type Bugrom from El-Hazard: The Magnificent World" coords="1267,1741,1335,1827" />
+  <area shape="poly" title="Gummo-type Bugrom from El-Hazard: The Magnificent World" coords="1118,1746,1161,1746,1184,1763,1184,1835,1090,1830,1093,1766" />
+  <area shape="poly" title="Chico-type Bugrom from El-Hazard: The Magnificent World" coords="1028,1684,1028,1724,1087,1724,1087,1683,1114,1696,1114,1747,1091,1764,1087,1830,1033,1828,1008,1756,982,1731" />
+  <area shape="poly" title="Harpo-type Bugrom from El-Hazard: The Magnificent World" coords="920,1827,921,1773,943,1741,989,1740,1006,1758,1017,1796,1011,1823" />
+  <area shape="poly" title="Groucho-type Bugrom from El-Hazard: The Magnificent World" coords="854,1828,856,1794,872,1764,917,1772,917,1827" />
+  <area shape="poly" title="Zeppo-type Bugrom from El-Hazard: The Magnificent World" coords="784,1743,826,1725,841,1741,867,1741,867,1771,854,1793,851,1828,784,1828" />
+  <area shape="poly" title="Rokkon from Phantom Quest Corp" coords="542,1828,455,1828,455,1788,492,1735,542,1790" />
+  <area shape="rect" title="Yamada from The Irresponsible Captain Tylor" coords="2832,1822,2864,1865" />
+  <area shape="rect" title="Yuka Kanzaki from Golden Boy" coords="649,1833,688,1901" />
+  <area shape="rect" title="Naoko Katsuda from Golden Boy" coords="691,1831,734,1906" />
+  <area shape="rect" title="Madame President from Golden Boy" coords="596,1833,646,1902" />
+  <area shape="rect" title="Lemon Pai from Idol Janshi Suchie-Pai" coords="1341,1825,1382,1904" />
+  <area shape="rect" title="Peach Pai from Idol Janshi Suchie-Pai" coords="1385,1842,1426,1903" />
+  <area shape="rect" title="Suchi Pai from Idol Janshi Suchie-Pai" coords="1429,1836,1479,1903" />
+  <area shape="rect" title="Milky Pai from Idol Janshi Suchie-Pai" coords="1482,1836,1527,1903" />
+  <area shape="rect" title="Cherry Pai from Idol Janshi Suchie-Pai" coords="1530,1836,1576,1902" />
+  <area shape="rect" title="Trapp from Fortune Quest" coords="2735,2053,2776,2128" />
+  <area shape="rect" title="Shiro from Fortune Quest" coords="2969,2054,3011,2078" />
+  <area shape="rect" title="Kitton from Fortune Quest" coords="2965,2081,3018,2125" />
+  <area shape="rect" title="Rumy from Fortune Quest" coords="2924,2058,2962,2112" />
+  <area shape="rect" title="Knoll from Fortune Quest" coords="2873,2042,2921,2105" />
+  <area shape="rect" title="Clay S. Anderson from Fortune Quest" coords="2779,2053,2827,2128" />
+  <area shape="rect" title="Shigeki Arakawa from Mobile Police Patlabor 2: The Movie" coords="2784,2131,2832,2191" />
+  <area shape="rect" title="Badrinath Harchand from Patlabor the Mobile Police" coords="2734,2131,2781,2190" />
+  <area shape="rect" title="Richard Wong from Patlabor the Mobile Police" coords="2687,2126,2731,2192" />
+  <area shape="rect" title="Takahiro Matsui from Patlabor the Mobile Police" coords="2635,2129,2684,2191" />
+  <area shape="rect" title="Shinobu Nagumo from Patlabor the Mobile Police" coords="2595,2127,2632,2191" />
+  <area shape="rect" title="Asuka Tsukishiro from Matchless Raijin-Oh" coords="1776,2120,1823,2189" />
+  <area shape="rect" title="Jin Hyuuga from Matchless Raijin-Oh" coords="1726,2118,1773,2198" />
+  <area shape="rect" title="Koji Hoshiyama from Matchless Raijin-Oh" coords="1681,2121,1723,2188" />
+  <area shape="rect" title="Kirara Haruno from Matchless Raijin-Oh" coords="1638,2127,1678,2192" />
+  <area shape="rect" title="Tsutomu Kojima from Matchless Raijin-Oh" coords="1601,2124,1635,2195" />
+  <area shape="rect" title="Orie Ishizuka from Matchless Raijin-Oh" coords="1554,2130,1598,2195" />
+  <area shape="rect" title="Hidenori Kondo from Matchless Raijin-Oh" coords="1515,2139,1551,2195" />
+  <area shape="rect" title="Aiko Shimada from Matchless Raijin-Oh" coords="1473,2133,1512,2193" />
+  <area shape="rect" title="Miki Mano from Matchless Raijin-Oh" coords="1394,2134,1432,2192" />
+  <area shape="poly" title="Tokie Sakai from Matchless Raijin-Oh" coords="1426,2121,1481,2121,1481,2132,1472,2132,1472,2195,1435,2195,1435,2133,1426,2133" />
+  <area shape="rect" title="Yu Izumi from Matchless Raijin-Oh" coords="1352,2123,1391,2192" />
+  <area shape="rect" title="Karura-ou from RG Veda" coords="1307,2113,1345,2195" />
+  <area shape="rect" title="Kendappa-ou from RG Veda" coords="1243,2120,1304,2195" />
+  <area shape="poly" title="Souma from RG Veda" coords="1202,2126,1241,2126,1241,2195,1202,2195,1202,2183,1233,2156,1236,2139,1202,2155" />
+  <area shape="poly" title="Ryu-ou from RG Veda" coords="1197,2196,1159,2196,1159,2128,1197,2128,1197,2160,1233,2143,1197,2181" />
+  <area shape="rect" title="Yasha-ou from RG Veda" coords="1114,2115,1156,2194" />
+  <area shape="rect" title="Ashura from RG Veda" coords="1074,2125,1111,2194" />
+  <area shape="rect" title="Kujaku from RG Veda" coords="1030,2120,1071,2194" />
+  <area shape="rect" title="Kuyou from RG Veda" coords="981,2122,1027,2194" />
+  <area shape="rect" title="Aizenmyo-ou from RG Veda" coords="909,2119,958,2195" />
+  <area shape="rect" title="Moka from Ozanari Dungeon" coords="1809,2268,1853,2337" />
+  <area shape="poly" title="Kiriman from Ozanari Dungeon" coords="1808,2341,1764,2341,1764,2307,1743,2307,1743,2283,1799,2260,1808,2300" />
+  <area shape="rect" title="Buruman from Ozanari Dungeon" coords="1725,2308,1761,2340" />
+  <area shape="rect" title="Nikolai from Good Morning Althea" coords="3086,2325,3149,2390" />
+  <area shape="rect" title="Handmaiden from Hades Project Zeorymer" coords="2864,2343,2903,2427" />
+  <area shape="rect" title="Handmaiden from Hades Project Zeorymer" coords="2756,2342,2793,2427" />
+  <area shape="poly" title="Empress Yuratei from Hades Project Zeorymer" coords="2852,2319,2861,2344,2861,2429,2797,2429,2797,2316" />
+  <area shape="rect" title="Eve Tokimatsuri from Megazone 23" coords="1838,2340,2296,2430" />
+  <area shape="rect" title="Eiji Takanaka from Megazone 23 - Part 3" coords="1248,2331,1285,2430" />
+  <area shape="rect" title="Ryo Narahara from Megazone 23 - Part 3" coords="1288,2338,1320,2430" />
+  <area shape="rect" title="Bud from Megazone 23 - Part 3" coords="1323,2336,1360,2430" />
+  <area shape="poly" title="Nupetiet-Vergnitzs from The Super Dimension Fortress Macross" coords="3765,351,3682,315,3681,272,3708,252,3812,243,3886,277,3887,307" />
+  <area shape="poly" title="RX-78GP03 Gundam &quot;Dendrobium&quot; from Mobile Suit Gundam 0083: Stardust Memory" coords="3600,97,3511,146,3611,215,3708,234,3748,176,3751,118,3692,93" />
+  <area shape="poly" title="RX-78GP02A Gundam &quot;Physalis&quot; from Mobile Suit Gundam 0083: Stardust Memory" coords="3784,425,3677,488,3655,493,3632,404,3640,374,3671,335,3692,335,3790,388" />
+  <area shape="poly" title="Emeraldas from Captain Harlock" coords="3279,211,3248,206,3225,216,3200,174,3228,158,3273,179" />
+  <area shape="poly" title="F91 Gundam F91 from Mobile Suit Gundam F91" coords="2816,439,2751,439,2739,425,2757,362,2801,357,2830,386,2837,427" />
+  <area shape="poly" title="Brünhild from Legend of the Galactic Heroes" coords="2696,312,2805,350,2848,334,2877,294,2848,259,2818,271,2807,285,2744,296,2740,288" />
+  <area shape="poly" title="RX-78GP03S Gundam &quot;Dendrobium Stamen&quot; from Mobile Suit Gundam 0083: Stardust Memory" coords="2717,155,2734,182,2805,161,2771,91,2717,104" />
+  <area shape="poly" title="MSA-0011[Ext] Ex-S Gundam from Gundam Sentinel" coords="2624,79,2684,97,2682,139,2645,173,2598,175,2554,108" />
+  <area shape="poly" title="RGZ-91 Re-GZ from Mobile Suit Gundam: Char&#39;s Counterattack" coords="2385,321,2386,343,2370,360,2397,390,2446,375,2448,340,2405,314" />
+  <area shape="poly" title="Yamato (18th generation) from Yamato 2520" coords="2396,228,2340,226,2287,277,2268,349,2351,355,2382,332,2382,319,2438,299,2525,244,2533,158,2513,159,2451,202,2454,216,2436,225,2430,218,2410,233" />
+  <area shape="poly" title="Nabu from Yamato 2520" coords="2399,168,2427,164,2429,216,2411,230,2400,227" />
+  <area shape="poly" title="Marcie from Yamato 2520" coords="2429,163,2431,215,2437,221,2451,215,2448,202,2467,188,2467,161,2448,152" />
+  <area shape="poly" title="Susumu Kodai from Space Battleship Yamato" coords="2268,175,2282,157,2306,106,2296,82,2263,85,2252,109,2266,118" />
+  <area shape="poly" title="Baron Humbert von Gikkingen from Whisper of the Heart" coords="1689,385,1709,422,1708,442,1692,443,1663,420,1678,390" />
+  <area shape="poly" title="MSN-04 Sazabi from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1775,312,1722,304,1712,231,1721,207,1803,233,1802,279" />
+  <area shape="poly" title="RX-93 ν Gundam (Nu Gundam) from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1711,236,1719,298,1702,319,1660,327,1629,310,1612,253" />
+  <area shape="poly" title="Ariel from Ariel" coords="1507,299,1538,360,1616,350,1612,294,1554,277" />
+  <area shape="poly" title="MSZ-010 ΖΖ Gundam from Mobile Suit Gundam ZZ" coords="1481,93,1533,127,1498,178,1446,179,1420,137,1438,101" />
+  <area shape="poly" title="Electra from Nadia: The Secret of Blue Water" coords="1333,306,1345,312,1387,276,1370,236,1328,241" />
+  <area shape="poly" title="New Nautilus from Nadia: The Secret of Blue Water" coords="1098,333,1110,356,1282,401,1307,322,1342,322,1355,349,1379,349,1390,383,1377,419,1351,438,1369,457,1421,377,1411,328,1395,328,1395,293,1380,284,1343,319,1332,319,1329,277,1279,294,1267,334,1225,335,1223,313,1157,309,1138,330" />
+  <area shape="poly" title="MRX-009 Psycho Gundam from Mobile Suit Zeta Gundam" coords="1304,459,1216,459,1215,481,1178,481,1178,464,1131,464,1131,446,1119,362,1277,403" />
+  <area shape="poly" title="MSZ-006 Zeta Gundam from Mobile Suit Zeta Gundam" coords="1115,443,1078,467,1051,445,1051,399,1080,378,1093,383,1112,414" />
+  <area shape="poly" title="RX-178 Gundam Mk-II from Mobile Suit Zeta Gundam" coords="1067,279,1066,308,1028,339,997,322,997,283,1032,258" />
+  <area shape="poly" title="RX-78NT-1 Gundam &quot;Alex&quot; from Mobile Suit Gundam 0080: War in the Pocket" coords="725,336,731,386,758,407,806,380,805,344,763,312" />
+  <area shape="poly" title="Battia from Outlanders" coords="242,301,201,321,217,356,202,369,211,376,226,360,244,382,262,371,262,332" />
+  <area shape="poly" title="Tetsuya Wakatsuki from Outlanders" coords="309,327,335,391,317,415,282,358" />
+  <area shape="poly" title="RX-78GP01-Fb Gundam &quot;Zephyranthes&quot; Full Burnern from Mobile Suit Gundam 0083: Stardust Memory" coords="3622,503,3696,487,3720,524,3704,567,3648,576,3617,544" />
+  <area shape="poly" title="LM312V04 Victory Gundam from Mobile Suit Victory Gundam" coords="3430,723,3496,703,3500,659,3458,629,3401,668" />
+  <area shape="poly" title="Kwai Chang Hyou from Kwai Chang Hyou by Lionel Lum" coords="332,1195,358,1218,347,1265,287,1257,289,1235,321,1236,323,1205" />
+  <area shape="poly" title="Hiro Seno from Venus Wars" coords="180,1471,224,1493,233,1489,208,1423,168,1440" />
+  <area shape="rect" title="Goku Furinji from Goku: Midnight Eye" coords="3084,450,3131,525" />
+  <area shape="rect" title="Andy from Space Family Carlvinson" coords="2791,469,2830,523" />
+  <area shape="rect" title="Corona from Space Family Carlvinson" coords="2758,480,2786,532" />
+  <area shape="rect" title="Beruka from Space Family Carlvinson" coords="2720,459,2755,530" />
+  <area shape="rect" title="Ta-kun from Space Family Carlvinson" coords="2665,452,2717,528" />
+  <area shape="rect" title="Sharon Apple from Macross Plus Movie Edition" coords="1940,430,2007,525" />
+  <area shape="rect" title="Maris from Maris the Chojo" coords="1752,461,1789,533" />
+  <area shape="rect" title="Reika Ayanokouji from Battle Skipper" coords="1700,459,1749,543" />
+  <area shape="rect" title="Rie Shibusawa from Battle Skipper" coords="1662,460,1697,543" />
+  <area shape="rect" title="Kanami Izaki from Battle Skipper" coords="1621,463,1659,539" />
+  <area shape="rect" title="Saori Tachibana from Battle Skipper" coords="1576,468,1618,533" />
+  <area shape="rect" title="Shihoko Sakaki from Battle Skipper" coords="1537,466,1573,533" />
+  <area shape="rect" title="Maki from Burn Up!" coords="1486,462,1534,533" />
+  <area shape="rect" title="Rio Kinezono from Burn-Up W" coords="1441,457,1483,533" />
+  <area shape="rect" title="Natsuki Kisumi from Natsuki Crisis" coords="1393,452,1438,533" />
+  <area shape="rect" title="Rina Takaoka from Natsuki Crisis" coords="1354,464,1390,542" />
+  <area shape="rect" title="Princess Lichia from Amon Saga" coords="1311,463,1351,542" />
+  <area shape="rect" title="Amon from Amon Saga" coords="1265,460,1308,540" />
+  <area shape="rect" title="Boy from Angel's Egg" coords="1219,461,1262,533" />
+  <area shape="rect" title="Girl from Angel's Egg" coords="1178,482,1216,544" />
+  <area shape="rect" title="Takaomi Matsubue from Discommunication" coords="1093,460,1128,538" />
+  <area shape="poly" title="Hanson from Nadia: The Secret of Blue Water" coords="966,415,966,456,991,487,1018,462,1007,415" />
+  <area shape="poly" title="Sanson from Nadia: The Secret of Blue Water" coords="877,404,917,404,917,456,893,480,877,463" />
+  <area shape="rect" title="Grandis Granva from Nadia: The Secret of Blue Water" coords="918,371,963,439" />
+  <area shape="poly" title="Gratan/Katherine from Nadia: The Secret of Blue Water" coords="940,444,893,488,868,461,869,385,837,385,874,540,990,540,993,507,1044,442,1033,374,1007,375,1020,464,992,493" />
+  <area shape="rect" title="Lateil/Latell from The Enemy's the Pirates!" coords="3302,530,3347,585" />
+  <area shape="rect" title="Apulo/Apullo from The Enemy's the Pirates!" coords="3275,567,3299,606" />
+  <area shape="poly" title="Marsha/Marcia from The Enemy's the Pirates!" coords="3231,534,3284,534,3284,558,3274,558,3274,606,3237,606,3237,546,3231,546" />
+  <area shape="rect" title="&quot;Minnie&quot; May Hopkins from Gunsmith Cats" coords="3192,547,3234,604" />
+  <area shape="rect" title="Irene &quot;Rally&quot; Vincent from Gunsmith Cats" coords="3147,534,3189,606" />
+  <area shape="rect" title="Asuka Sugo from Future GPX Cyber Formula" coords="2957,541,2997,589" />
+  <area shape="rect" title="Hayato Kazami from Future GPX Cyber Formula" coords="2916,530,2954,589" />
+  <area shape="rect" title="Jotaro &quot;Bleed&quot; Kaga from Future GPX Cyber Formula" coords="2875,528,2913,595" />
+  <area shape="poly" title="Shinobu Fujiwara from Dancouga: Super Beast Machine God" coords="2789,526,2789,601,2804,601,2833,579,2833,526" />
+  <area shape="rect" title="Sara Yuki from Dancouga: Super Beast Machine God" coords="2834,526,2872,595" />
+  <area shape="rect" title="Hazumi Jinno from Combustible Campus Guardress" coords="2743,535,2786,599" />
+  <area shape="rect" title="Meiko Rokudo from Ghost Sweeper Mikami" coords="2587,537,2622,599" />
+  <area shape="rect" title="M-66 from Black Magic M-66" coords="2319,541,2362,608" />
+  <area shape="rect" title="June Ashel from Sol Bianca" coords="2190,540,2224,610" />
+  <area shape="rect" title="May Jessica from Sol Bianca" coords="2150,540,2187,610" />
+  <area shape="rect" title="April Bikirk from Sol Bianca" coords="2113,535,2147,611" />
+  <area shape="rect" title="Feb Fall from Sol Bianca" coords="2076,534,2109,613" />
+  <area shape="rect" title="Janny Mann from Sol Bianca" coords="2038,536,2073,615" />
+  <area shape="rect" title="Bareiho from Kishin Corps" coords="1896,533,1939,619" />
+  <area shape="rect" title="Taishi Takamura from Kishin Corps" coords="1859,551,1893,619" />
+  <area shape="rect" title="Daisaku Sakaki from Kishin Corps" coords="1819,533,1856,619" />
+  <area shape="rect" title="Kimihiko Masumi from Kishin Corps" coords="1782,536,1816,619" />
+  <area shape="rect" title="Nakoruru from Samurai Shodown" coords="1734,546,1779,619" />
+  <area shape="rect" title="Ellis from Battle Arena Toshinden" coords="1686,546,1731,619" />
+  <area shape="poly" title="Larva from Vampire Princess Miyu" coords="2806,601,2823,588,2844,610,2814,674" />
+  <area shape="rect" title="Miyu from Vampire Princess Miyu" coords="2759,602,2803,676" />
+  <area shape="rect" title="Dead End from Tekkaman Blade II" coords="2714,609,2756,676" />
+  <area shape="rect" title="Yumi Francois from Tekkaman Blade II" coords="2663,613,2711,676" />
+  <area shape="rect" title="Natasha Pablochiva from Tekkaman Blade II" coords="2622,613,2660,666" />
+  <area shape="rect" title="David Kruegel from Tekkaman Blade II" coords="2581,602,2619,666" />
+  <area shape="rect" title="Aki Kisaragi from Tekkaman Blade" coords="2536,605,2578,666" />
+  <area shape="rect" title="Takaya Aiba from Tekkaman Blade" coords="2494,606,2533,679" />
+  <area shape="rect" title="Miss China from Spirit of Wonder" coords="2449,613,2490,669" />
+  <area shape="rect" title="Nastassja from Moldiver" coords="2125,614,2162,666" />
+  <area shape="rect" title="Elizabeth from Moldiver" coords="2254,613,2289,679" />
+  <area shape="poly" title="Jennifer from Moldiver" coords="2165,613,2209,613,2209,692,2189,692,2189,668,2165,668" />
+  <area shape="rect" title="Sayuri from Moldiver" coords="2085,616,2122,693" />
+  <area shape="rect" title="Vivian from Moldiver" coords="2292,613,2326,679" />
+  <area shape="rect" title="Amy Lean from Moldiver" coords="2403,618,2446,669" />
+  <area shape="rect" title="Kaoru Misaki from Moldiver" coords="2017,618,2047,685" />
+  <area shape="poly" title="Nozomu Ozora from Moldiver" coords="1907,622,1942,622,1942,686,1916,686,1916,663,1907,663" />
+  <area shape="rect" title="Brooke from Moldiver" coords="2210,613,2251,665" />
+  <area shape="rect" title="Isabelle from Moldiver" coords="2329,611,2367,677" />
+  <area shape="rect" title="Professor Hiroshi Amagi from Moldiver" coords="2370,618,2400,677" />
+  <area shape="rect" title="Mirai Ozora from Moldiver" coords="1986,618,2014,685" />
+  <area shape="rect" title="Mao Shirase from Moldiver" coords="2050,618,2082,693" />
+  <area shape="rect" title="Hiroshi Ozora from Moldiver" coords="1943,617,1983,685" />
+  <area shape="rect" title="Toria from Orguss 02" coords="1867,622,1904,661" />
+  <area shape="rect" title="Lean from Orguss 02" coords="1833,622,1864,684" />
+  <area shape="rect" title="Nataruma from Orguss 02" coords="1789,622,1830,692" />
+  <area shape="rect" title="Shaya Thoov from Super Dimension Century Orguss" coords="1749,622,1786,692" />
+  <area shape="rect" title="Athena Henderson from Super Dimension Century Orguss" coords="1707,622,1746,694" />
+  <area shape="rect" title="Lieea from Super Dimension Century Orguss" coords="1665,622,1704,687" />
+  <area shape="rect" title="Maaie from Super Dimension Century Orguss" coords="1626,622,1662,686" />
+  <area shape="rect" title="Mome from Super Dimension Century Orguss" coords="1546,633,1587,686" />
+  <area shape="rect" title="Mimsy Raas from Super Dimension Century Orguss" coords="1506,627,1543,692" />
+  <area shape="rect" title="Kei Katsuragi from Super Dimension Century Orguss" coords="1464,625,1503,689" />
+  <area shape="rect" title="Sakura Saginomiya from 801 T.T.S. Airbats" coords="1424,626,1461,689" />
+  <area shape="rect" title="Yoko Shimorenjaku from 801 T.T.S. Airbats" coords="1385,626,1421,693" />
+  <area shape="rect" title="Miyuki Haneda from 801 T.T.S. Airbats" coords="1343,626,1382,683" />
+  <area shape="rect" title="Arisa Mitaka from 801 T.T.S. Airbats" coords="1303,618,1340,683" />
+  <area shape="rect" title="Takuya Isurugi from 801 T.T.S. Airbats" coords="1260,618,1300,689" />
+  <area shape="rect" title="Ginko from Metal Fighter Miku" coords="1219,618,1257,697" />
+  <area shape="rect" title="Miku from Metal Fighter Miku" coords="1166,622,1216,698" />
+  <area shape="rect" title="Nana from Metal Fighter Miku" coords="1116,625,1163,701" />
+  <area shape="rect" title="Sayaka from Metal Fighter Miku" coords="1066,622,1113,695" />
+  <area shape="rect" title="Lulara Kawasaki from DNA²" coords="1023,620,1063,695" />
+  <area shape="rect" title="Ryuji Sugashita from DNA²" coords="982,615,1020,695" />
+  <area shape="rect" title="Tomoko Saeki from DNA²" coords="941,620,979,688" />
+  <area shape="rect" title="Kotomi Takanashi from DNA²" coords="902,621,938,688" />
+  <area shape="rect" title="Ami Kurimoto from DNA²" coords="862,621,899,694" />
+  <area shape="rect" title="Karin Aoi from DNA²" coords="812,621,859,676" />
+  <area shape="rect" title="Junta Momonari from DNA²" coords="765,621,809,676" />
+  <area shape="rect" title="Adeu Warsam from Lord of Lords Ryu Knight" coords="707,616,762,694" />
+  <area shape="rect" title="Paffy Pafuricia from Lord of Lords Ryu Knight" coords="651,620,704,698" />
+  <area shape="rect" title="Misao Amano from Magical Girl Pretty Sammy" coords="2088,696,2124,773" />
+  <area shape="rect" title="Rumiya from Magical Girl Pretty Sammy" coords="2040,696,2085,770" />
+  <area shape="poly" title="Nagi from Tenchi Muyo" coords="1964,688,2039,688,2039,771,1997,771,1997,733,1964,733" />
+  <area shape="rect" title="Ken-Ohki from Tenchi Muyo" coords="1964,734,1994,769" />
+  <area shape="rect" title="Colleen from Twice August by Lionel Lum" coords="1608,852,1644,917" />
+  <area shape="rect" title="Scott Lin from Twice August by Lionel Lum" coords="1570,848,1605,926" />
+  <area shape="rect" title="Shasti from Twice August by Lionel Lum" coords="1534,856,1567,926" />
+  <area shape="rect" title="Marimo Himenogi from Twinkle Twinkle Idol Star" coords="1733,850,1778,919" />
+  <area shape="rect" title="Ayumi Fujimura from Twinkle Twinkle Idol Star" coords="1781,850,1818,937" />
+  <area shape="rect" title="Ran from Green Legend Ran" coords="1981,857,2029,926" />
+  <area shape="rect" title="Aira from Green Legend Ran" coords="2032,859,2071,925" />
+  <area shape="rect" title="Wataru from A Wind Named Amnesia" coords="2074,848,2115,925" />
+  <area shape="rect" title="Sophia from A Wind Named Amnesia" coords="2118,850,2159,929" />
+  <area shape="rect" title="Seiji Amasawa from Whisper of the Heart" coords="2162,852,2202,927" />
+  <area shape="rect" title="Shizuku Tsukishima from Whisper of the Heart" coords="2205,859,2239,927" />
+  <area shape="rect" title="Yuko Harada from Whisper of the Heart" coords="2242,857,2279,927" />
+  <area shape="rect" title="Sugimura from Whisper of the Heart" coords="2282,857,2313,932" />
+  <area shape="rect" title="White Rabbit from Miyuki-chan in Wonderland" coords="2470,843,2512,927" />
+  <area shape="rect" title="Humpty Dumpty from Miyuki-chan in Wonderland" coords="2515,835,2558,920" />
+  <area shape="rect" title="Miyuki from Miyuki-chan in Wonderland" coords="2561,852,2598,920" />
+  <area shape="rect" title="Cheshire Cat from Miyuki-chan in Wonderland" coords="2601,842,2652,925" />
+  <area shape="rect" title="Jabberwock from Miyuki-chan in Wonderland" coords="2655,842,2743,926" />
+  <area shape="poly" title="Queen from Miyuki-chan in Wonderland" coords="2809,842,2809,882,2818,882,2818,926,2746,926,2746,842" />
+  <area shape="poly" title="To Li from Miyuki-chan in Wonderland" coords="2811,842,2860,842,2860,939,2819,939,2819,881,2811,881" />
+  <area shape="rect" title="Cho Li from Miyuki-chan in Wonderland" coords="2861,842,2907,937" />
+  <area shape="rect" title="Cobra from Space Adventure Cobra" coords="2913,842,2952,937" />
+  <area shape="rect" title="Momiji Kagariya from Starship Girl Yamamoto Yohko" coords="3077,844,3118,931" />
+  <area shape="rect" title="Ayano Elizabeth Hakuhouin from Starship Girl Yamamoto Yohko" coords="3121,844,3158,928" />
+  <area shape="rect" title="Yohko Yamamoto from Starship Girl Yamamoto Yohko" coords="3161,847,3200,928" />
+  <area shape="rect" title="Madoka Midou from Starship Girl Yamamoto Yohko" coords="3203,845,3244,923" />
+  <area shape="rect" title="Marie from My Dear Marie" coords="3247,845,3286,920" />
+  <area shape="rect" title="Marie Karigari from My Dear Marie" coords="3289,844,3325,920" />
+  <area shape="rect" title="Hiroshi Karigari from My Dear Marie" coords="3328,842,3374,926" />
+  <area shape="rect" title="Joker from Joker: Marginal City" coords="3377,842,3420,923" />
+  <area shape="rect" title="Kia Asamiya (mangaka)" coords="2826,962,2866,1006" />
+  <area shape="rect" title="Memory Gene from Sonic Soldier Borgman" coords="2651,931,2686,1010" />
+  <area shape="rect" title="Anice Farm from Sonic Soldier Borgman" coords="2610,933,2648,1010" />
+  <area shape="rect" title="Ryo Hibiki from Sonic Soldier Borgman" coords="2567,928,2607,1001" />
+  <area shape="poly" title="Chuck Sweagar from Sonic Soldier Borgman" coords="2523,923,2566,923,2566,1003,2558,1003,2558,1014,2523,1014" />
+  <area shape="rect" title="Miki Katsura from Sonic Soldier Borgman" coords="2481,930,2520,1011" />
+  <area shape="rect" title="Fuyuka Liqueur from Silent Möbius" coords="2443,936,2478,1009" />
+  <area shape="rect" title="Rally Cheyenne from Silent Möbius" coords="2403,937,2440,1002" />
+  <area shape="rect" title="Mana Isozaki from Silent Möbius" coords="2363,938,2400,1002" />
+  <area shape="rect" title="Yuki Saiko from Silent Möbius" coords="2322,938,2360,1002" />
+  <area shape="rect" title="Nami Yamigumo from Silent Möbius" coords="2282,938,2319,1002" />
+  <area shape="rect" title="Lebia Maverick from Silent Möbius" coords="2222,930,2279,1002" />
+  <area shape="rect" title="Kiddy Phenil from Silent Möbius" coords="2180,930,2219,1002" />
+  <area shape="rect" title="Katsumi Liqueur from Silent Möbius" coords="2116,932,2177,1008" />
+  <area shape="rect" title="Robert De Vice from Silent Möbius" coords="2070,928,2113,1012" />
+  <area shape="rect" title="Daimaru Nakajima from You're Under Arrest!" coords="1850,940,1896,1002" />
+  <area shape="poly" title="Megumi Morisato from Oh My Goddess!" coords="1391,942,1391,996,1377,996,1377,1030,1352,1030,1352,942" />
+  <area shape="rect" title="Sora Hasegawa from Oh My Goddess!" coords="1311,942,1349,1016" />
+  <area shape="rect" title="Chieko Honda from Oh My Goddess!" coords="1269,942,1308,1016" />
+  <area shape="rect" title="Yukari Godai from Maison Ikkoku" coords="1228,964,1266,1018" />
+  <area shape="rect" title="Kozue Nanao from Maison Ikkoku" coords="1188,942,1225,1010" />
+  <area shape="poly" title="Doorknobder from Sailor Moon" coords="1656,1508,1698,1508,1698,1588,1669,1588,1669,1594,1655,1594,1633,1560,1656,1546" />
+  <area shape="poly" title="Chikuon from Sailor Moon" coords="1587,1503,1617,1503,1617,1512,1655,1512,1655,1545,1626,1563,1626,1563,1626,1588,1587,1588" />
+  <area shape="rect" title="Chokokkar from Sailor Moon" coords="1542,1505,1584,1581" />
+  <area shape="rect" title="Hurdler from Sailor Moon" coords="1495,1517,1539,1581" />
+  <area shape="rect" title="Daruma from Sailor Moon" coords="1451,1517,1492,1587" />
+  <area shape="rect" title="Chagama from Sailor Moon" coords="1402,1517,1448,1598" />
+  <area shape="poly" title="Soiya from Sailor Moon" coords="1355,1506,1401,1514,1401,1586,1355,1586" />
+  <area shape="poly" title="Cenicienta from Sailor Moon" coords="1325,1498,1325,1520,1306,1520,1306,1589,1311,1589,1311,1601,1354,1601,1354,1510" />
+  <area shape="rect" title="Haikyun from Sailor Moon" coords="1259,1520,1303,1587" />
+  <area shape="poly" title="Toden from Sailor Moon" coords="1198,1505,1235,1505,1235,1520,1258,1520,1258,1589,1224,1589,1224,1582,1198,1582" />
+  <area shape="rect" title="Taiyan from Sailor Moon" coords="1157,1511,1195,1580" />
+  <area shape="rect" title="Doburin from Sailor Moon" coords="1110,1511,1154,1585" />
+  <area shape="rect" title="Scar from Sailor Moon" coords="1066,1510,1107,1585" />
+  <area shape="poly" title="Daiheart from Sailor Moon" coords="1016,1490,1059,1490,1059,1510,1065,1510,1065,1587,1016,1587" />
+  <area shape="rect" title="Osouji from Sailor Moon" coords="958,1500,1013,1587" />
+  <area shape="rect" title="Octave from Sailor Moon" coords="917,1501,955,1588" />
+  <area shape="rect" title="Steering from Sailor Moon" coords="846,1501,914,1588" />
+  <area shape="rect" title="Nekonneru from Sailor Moon" coords="803,1501,843,1593" />
+  <area shape="rect" title="Mikuji from Sailor Moon" coords="756,1489,800,1583" />
+  <area shape="rect" title="Masanori Tsuzuki from Sailor Moon" coords="3174,1590,3210,1677" />
+  <area shape="rect" title="Elza Gray from Sailor Moon" coords="3131,1590,3171,1669" />
+  <area shape="rect" title="Kakusui Yakushiji from Sailor Moon" coords="3088,1590,3128,1664" />
+  <area shape="rect" title="Shinnosuke from Sailor Moon" coords="3048,1590,3085,1664" />
+  <area shape="rect" href="https://www.youtube.com/watch?v=Pc-OqqRDSGg" title="Waitress (episode 103) from Sailor Moon" coords="2905,1595,2943,1664" />
+  <area shape="rect" title="Tsutomu Asai's girlfriend from Sailor Moon" coords="2866,1595,2902,1659" />
+  <area shape="rect" title="Tsutomu Asai from Sailor Moon" coords="2817,1588,2863,1659" />
+  <area shape="poly" title="Katsutoshi Yamada from Sailor Moon" coords="2816,1588,2816,1669,2766,1669,2766,1629,2782,1588" />
+  <area shape="poly" title="Unazuki Furuhata from Sailor Moon" coords="2705,1593,2743,1593,2753,1626,2753,1671,2705,1671" />
+  <area shape="rect" title="Takuzo Igarashi from Sailor Moon" coords="2665,1593,2702,1674" />
+  <area shape="rect" title="Kameda from Sailor Moon" coords="2620,1593,2662,1670" />
+  <area shape="rect" title="Miharu (episode 91) from Sailor Moon" coords="2584,1594,2617,1670" />
+  <area shape="rect" title="Nana Asahina from Sailor Moon" coords="2540,1594,2581,1670" />
+  <area shape="rect" title="Katarina from Sailor Moon" coords="2498,1594,2537,1670" />
+  <area shape="rect" title="Alan from Sailor Moon" coords="2454,1594,2495,1680" />
+  <area shape="rect" title="Misha from Sailor Moon" coords="2413,1590,2451,1670" />
+  <area shape="rect" title="Janelyn from Sailor Moon" coords="2373,1598,2410,1670" />
+  <area shape="rect" title="Saeko Yamamoto from Sailor Moon" coords="2324,1598,2370,1669" />
+  <area shape="rect" title="Countess Rose from Sailor Moon" coords="2281,1592,2321,1667" />
+  <area shape="rect" title="Kariko Tokoyama's assistants from Sailor Moon" coords="2050,1600,2278,1662" />
+  <area shape="rect" title="Kariko Tokoyama from Sailor Moon" coords="2003,1592,2043,1654" />
+  <area shape="rect" title="Redman from Sailor Moon" coords="1949,1600,2000,1654" />
+  <area shape="rect" title="Rhett Butler from Sailor Moon" coords="1898,1644,1945,1664" />
+  <area shape="rect" title="An Ohara from Sailor Moon" coords="1898,1600,1945,1641" />
+  <area shape="poly" title="Reika Nishimura from Sailor Moon" coords="1851,1590,1891,1590,1891,1600,1897,1600,1897,1668,1865,1668,1865,1673,1851,1673" />
+  <area shape="rect" title="Yumemi Yumeno from Sailor Moon" coords="1808,1590,1848,1671" />
+  <area shape="rect" title="Ryo Urawa from Sailor Moon" coords="1763,1591,1805,1671" />
+  <area shape="rect" title="Priest (episode 26) from Sailor Moon" coords="1718,1589,1760,1671" />
+  <area shape="rect" title="Crane Game Joe from Sailor Moon" coords="1670,1589,1715,1658" />
+  <area shape="rect" title="Pension Adams waiter from Sailor Moon" coords="1448,1601,1489,1676" />
+  <area shape="rect" title="Pension Adams cook from Sailor Moon" coords="1397,1603,1445,1676" />
+  <area shape="rect" title="Pension Adams hostess from Sailor Moon" coords="1355,1587,1394,1673" />
+  <area shape="rect" title="Yoshiko Kayama from Sailor Moon" coords="1268,1590,1308,1669" />
+  <area shape="rect" title="Kijin Shinokawa from Sailor Moon" coords="1224,1590,1265,1669" />
+  <area shape="rect" title="Higure Akiyama from Sailor Moon" coords="1185,1583,1221,1669" />
+  <area shape="rect" title="Higure Akiyama's fiance from Sailor Moon" coords="1145,1599,1182,1669" />
+  <area shape="rect" title="Kunitachi from Sailor Moon" coords="1103,1588,1142,1669" />
+  <area shape="rect" title="Rui Saionji from Sailor Moon" coords="1059,1588,1100,1646" />
+  <area shape="rect" title="Thetis (first mate disguise) from Sailor Moon" coords="1012,1590,1056,1646" />
+  <area shape="rect" title="Usagi Tsukino (photographer disguise) from Sailor Moon" coords="973,1592,1009,1660" />
+  <area shape="rect" title="Usagi Tsukino (bus attendant disguise) from Sailor Moon" coords="933,1591,970,1660" />
+  <area shape="rect" title="Ramua (Clock Look saleswoman disguise) from Sailor Moon" coords="890,1591,930,1669" />
+  <area shape="rect" title="Usagi Tsukino (doctor disguise) from Sailor Moon" coords="848,1593,887,1662" />
+  <area shape="rect" title="Gurio Umino (dress) from Sailor Moon" coords="801,1596,845,1660" />
+  <area shape="rect" title="Mikan Shiratori from Sailor Moon" coords="756,1586,798,1660" />
+  <area shape="poly" title="Yusuke Amade from Sailor Moon" coords="712,1583,755,1583,755,1650,720,1667,712,1667" />
+  <area shape="rect" title="Akiko Yanagi from Sailor Moon" coords="675,1588,709,1665" />
+  <area shape="rect" title="Usagi Tsukino (musician disguise) from Sailor Moon" coords="628,1591,670,1669" />
+  <area shape="rect" title="Chanela from Sailor Moon" coords="585,1589,625,1605" />
+  <area shape="rect" title="Mika Kayama from Sailor Moon" coords="585,1608,625,1660" />
+  <area shape="rect" title="Haruna Sakurada (workout outfit) from Sailor Moon" coords="535,1589,582,1660" />
+  <area shape="rect" title="Usagi Tsukino (radio announcer disguise) from Sailor Moon" coords="491,1589,532,1660" />
+  <area shape="rect" title="DD Girls from Sailor Moon" coords="3300,1667,3549,1735" />
+  <area shape="rect" title="Oniwabandana from Sailor Moon" coords="3217,1667,3259,1735" />
+  <area shape="rect" title="Lake Monster from Sailor Moon" coords="2964,1667,3013,1749" />
+  <area shape="rect" title="Papillon from Sailor Moon" coords="3016,1667,3087,1738" />
+  <area shape="rect" title="Zoilingeller from Sailor Moon" coords="2877,1667,2961,1747" />
+  <area shape="rect" title="Blizzar from Sailor Moon" coords="2825,1662,2874,1734" />
+  <area shape="rect" title="Shakoukai from Sailor Moon" coords="2767,1670,2822,1734" />
+  <area shape="rect" title="Mitsuami from Sailor Moon" coords="2705,1672,2764,1751" />
+  <area shape="rect" title="Zoisite (disguise) from Sailor Moon" coords="2651,1677,2702,1737" />
+  <area shape="rect" title="Akan from Sailor Moon" coords="2588,1673,2648,1737" />
+  <area shape="rect" title="Bakene from Sailor Moon" coords="2512,1673,2585,1734" />
+  <area shape="rect" title="Jiji from Sailor Moon" coords="2440,1694,2485,1761" />
+  <area shape="rect" title="Rikokeida from Sailor Moon" coords="2363,1673,2400,1744" />
+  <area shape="rect" title="Binah from Sailor Moon" coords="2311,1672,2360,1746" />
+  <area shape="rect" title="Bunbo from Sailor Moon" coords="2241,1670,2308,1750" />
+  <area shape="rect" title="Boxy from Sailor Moon" coords="2177,1668,2238,1750" />
+  <area shape="rect" title="Gesen from Sailor Moon" coords="2117,1670,2174,1754" />
+  <area shape="rect" title="Housenka from Sailor Moon" coords="1826,1674,1863,1748" />
+  <area shape="rect" title="Suzuran from Sailor Moon" coords="1786,1674,1823,1748" />
+  <area shape="rect" title="Grape from Sailor Moon" coords="1739,1674,1783,1747" />
+  <area shape="poly" title="Yasha from Sailor Moon" coords="1690,1748,1738,1748,1738,1687,1709,1687" />
+  <area shape="poly" title="Pollux from Sailor Moon" coords="1642,1673,1679,1673,1679,1767,1668,1767,1642,1723" />
+  <area shape="rect" title="Castor from Sailor Moon" coords="1601,1674,1639,1726" />
+  <area shape="rect" title="Sakiko's father from Sailor Moon" coords="1553,1674,1598,1724" />
+  <area shape="rect" title="Regulus from Sailor Moon" coords="1502,1674,1550,1724" />
+  <area shape="rect" title="Jumeau from Sailor Moon" coords="1408,1679,1499,1744" />
+  <area shape="rect" title="Cameran from Sailor Moon" coords="1367,1679,1405,1753" />
+  <area shape="rect" title="Widow from Sailor Moon" coords="1306,1676,1364,1738" />
+  <area shape="rect" title="Petasos from Sailor Moon" coords="1241,1672,1301,1738" />
+  <area shape="rect" title="Tesuni from Sailor Moon" coords="1158,1672,1238,1728" />
+  <area shape="rect" title="Murido from Sailor Moon" coords="935,1663,979,1736" />
+  <area shape="rect" title="Kigaan from Sailor Moon" coords="888,1672,932,1747" />
+  <area shape="poly" title="Ramua from Sailor Moon" coords="829,1665,885,1665,885,1740,842,1740,829,1723" />
+  <area shape="poly" title="Garoben from Sailor Moon" coords="784,1739,784,1716,750,1663,828,1663,828,1720" />
+  <area shape="poly" title="Derella from Sailor Moon" coords="735,1763,735,1700,722,1667,744,1657,783,1718,783,1763" />
+  <area shape="poly" title="Kyurene from Sailor Moon" coords="673,1668,673,1763,734,1763,734,1701,721,1668" />
+  <area shape="rect" title="Iguara from Sailor Moon" coords="619,1672,670,1746" />
+  <area shape="rect" title="Flau from Sailor Moon" coords="557,1663,616,1746" />
+  <area shape="poly" title="Balm from Sailor Moon" coords="482,1681,491,1681,491,1663,556,1663,556,1753,542,1753,542,1768,526,1768,482,1720" />
+  <area shape="rect" title="Fortune-teller (episode 2) from Sailor Moon" coords="443,1588,488,1678" />
+  <area shape="rect" title="Balm (fortune-teller disguise) from Sailor Moon" coords="389,1588,440,1678" />
+  <area shape="rect" title="Madame Suimei from Phantom Quest Corp" coords="330,1769,381,1831" />
+  <area shape="rect" title="Mamoru Shimesu from Phantom Quest Corp" coords="384,1770,419,1831" />
+  <area shape="rect" title="Ayaka Kisaragi from Phantom Quest Corp" coords="543,1754,593,1832" />
+  <area shape="rect" title="Lt. Kozu Karina from Phantom Quest Corp" coords="596,1749,647,1830" />
+  <area shape="rect" title="Nanami Rokugo from Phantom Quest Corp" coords="650,1764,777,1828" />
+  <area shape="rect" title="Irene's dead boyfriend from Bubblegum Crisis" coords="1187,1905,1220,1982" />
+  <area shape="rect" title="Midi (combat armor) from Voogie's Angel" coords="1580,1836,1621,1904" />
+  <area shape="rect" title="Shiori (combat armor) from Voogie's Angel" coords="1624,1834,1672,1899" />
+  <area shape="rect" title="Merrybell (combat armor) from Voogie's Angel" coords="1675,1834,1727,1899" />
+  <area shape="poly" title="Voogie (combat armor) from Voogie's Angel" coords="1776,1838,1776,1906,1738,1906,1738,1901,1731,1901,1731,1842,1751,1819,1751,1838" />
+  <area shape="rect" title="Rebecca (combat armor) from Voogie's Angel" coords="1777,1838,1813,1907" />
+  <area shape="rect" title="Midi from Voogie's Angel" coords="1816,1840,1863,1903" />
+  <area shape="rect" title="Shiori from Voogie's Angel" coords="1866,1841,1915,1907" />
+  <area shape="rect" title="Merrybell from Voogie's Angel" coords="1918,1841,1964,1906" />
+  <area shape="rect" title="Voogie from Voogie's Angel" coords="1967,1841,2014,1904" />
+  <area shape="rect" title="Rebecca from Voogie's Angel" coords="2021,1833,2058,1908" />
+  <area shape="poly" title="Maron Namikaze from Assemble Insert" coords="3708,1833,3749,1833,3749,1886,3722,1920,3708,1920" />
+  <area shape="rect" title="Leina Haruka from Lightning Trap: Leina & Laika" coords="3667,1836,3705,1918" />
+  <area shape="rect" title="Laika Strange from Lightning Trap: Leina & Laika" coords="3622,1832,3664,1900" />
+  <area shape="rect" title="Leina Stol from Machine Robo: Revenge of Cronos" coords="3580,1837,3619,1890" />
+  <area shape="rect" title="Akihito &quot;Sekito&quot; Seki from Shinesman" coords="3534,1826,3574,1890" />
+  <area shape="rect" title="Tsukasa Nakamura from Shinesman" coords="3485,1822,3531,1898" />
+  <area shape="rect" title="Kyoko Sakakibara from Shinesman" coords="3431,1827,3482,1897" />
+  <area shape="rect" title="Hitomi &quot;Lafure&quot; Kasahara from Shinesman" coords="3383,1829,3428,1898" />
+  <area shape="rect" title="Shiina Hekirunrun from Shinesman" coords="3335,1826,3380,1897" />
+  <area shape="rect" title="Youta Matsumoto from Shinesman" coords="3293,1843,3332,1894" />
+  <area shape="poly" title="Hiroya Matsumoto from Shinesman" coords="3246,1825,3271,1825,3288,1843,3288,1896,3270,1896,3270,1905,3246,1905" />
+  <area shape="rect" title="Shotaro Ono from Shinesman" coords="3195,1820,3243,1901" />
+  <area shape="rect" title="Riko Hidaka from Shinesman" coords="3157,1828,3192,1898" />
+  <area shape="rect" title="Shogo Yamadera from Shinesman" coords="3107,1824,3154,1897" />
+  <area shape="poly" title="Ryoichi Hayami from Shinesman" coords="3106,1823,3106,1897,3060,1897,3060,1847,3071,1823" />
+  <area shape="poly" title="Rats from The Irresponsible Captain Tylor" coords="3014,1868,2991,1890,3003,1903,3053,1903,3053,1897,3059,1897,3059,1849,3034,1870" />
+  <area shape="rect" title="Gina Marceau from AD Police Files" coords="3493,1903,3535,1970" />
+  <area shape="rect" title="Billy Fanword from AD Police Files" coords="3538,1893,3612,1970" />
+  <area shape="rect" title="Phantom Woman from AD Police Files" coords="3615,1903,3656,1970" />
+  <area shape="rect" title="Kiichi Goto from Patlabor the Mobile Police" coords="2548,2122,2592,2190" />
+  <area shape="rect" title="Kanuka Clancy from Patlabor the Mobile Police" coords="2507,2124,2545,2185" />
+  <area shape="rect" title="Takeo Kumagami from Patlabor the Mobile Police" coords="2463,2124,2504,2185" />
+  <area shape="rect" title="Isao Ohta from Patlabor the Mobile Police" coords="2400,2129,2460,2195" />
+  <area shape="rect" title="Asuma Shinohara from Patlabor the Mobile Police" coords="2357,2124,2397,2195" />
+  <area shape="rect" title="Noa Izumi from Patlabor the Mobile Police" coords="2314,2134,2354,2185" />
+  <area shape="poly" title="Hiromi Yamazaki from Patlabor the Mobile Police" coords="2265,2107,2306,2107,2306,2147,2313,2147,2313,2184,2293,2207,2265,2168" />
+  <area shape="poly" title="Mikiyasu Shinshi from Patlabor the Mobile Police" coords="2223,2122,2264,2122,2264,2167,2238,2196,2223,2196" />
+  <area shape="rect" title="Seitaro Sakaki from Patlabor the Mobile Police" coords="2175,2118,2220,2194" />
+  <area shape="rect" title="Shigeo Shiba from Patlabor the Mobile Police" coords="2129,2124,2172,2194" />
+  <area shape="rect" title="Reiko Ikeda from Matchless Raijin-Oh" coords="1868,2135,1903,2191" />
+  <area shape="rect" title="Youko Kuriki from Matchless Raijin-Oh" coords="1906,2135,1951,2191" />
+  <area shape="rect" title="Akira Imamura from Matchless Raijin-Oh" coords="1954,2127,1996,2192" />
+  <area shape="rect" title="Hiroshi Takamori from Matchless Raijin-Oh" coords="1999,2132,2032,2192" />
+  <area shape="rect" title="Yoshiaki Ogawa from Matchless Raijin-Oh" coords="2035,2138,2071,2195" />
+  <area shape="rect" title="Daisuke Sato from Matchless Raijin-Oh" coords="2074,2127,2126,2187" />
+  <area shape="rect" title="Akihiro Ohtsuki from Girl from Phantasia" coords="2634,2268,2669,2331" />
+  <area shape="rect" title="Malon from Girl from Phantasia" coords="2672,2268,2706,2331" />
+  <area shape="rect" title="Mont Blanc from Girl from Phantasia" coords="2709,2271,2753,2333" />
+  <area shape="rect" title="Short from Girl from Phantasia" coords="2756,2261,2794,2339" />
+  <area shape="rect" title="Arisa from All Purpose Cultural Cat Girl Nuku Nuku" coords="2797,2267,2834,2312" />
+  <area shape="poly" title="Kyouko from All Purpose Cultural Cat Girl Nuku Nuku" coords="2837,2276,2871,2276,2871,2341,2861,2341,2853,2317,2837,2317" />
+  <area shape="rect" title="Akiko Natsume from All Purpose Cultural Cat Girl Nuku Nuku" coords="2872,2263,2909,2340" />
+  <area shape="rect" title="Ryunosuke Natsume from All Purpose Cultural Cat Girl Nuku Nuku" coords="2999,2273,3030,2332" />
+  <area shape="rect" title="Yoshimi Hagiwara from All Purpose Cultural Cat Girl Nuku Nuku" coords="3033,2270,3067,2334" />
+  <area shape="rect" title="Eimi Yoshikawa from All Purpose Cultural Cat Girl Nuku Nuku" coords="3070,2278,3106,2322" />
+  <area shape="rect" title="Mikage Matsunaga from Miracle Girls" coords="3109,2263,3149,2322" />
+  <area shape="rect" title="Tomomi Matsunaga from Miracle Girls" coords="3152,2265,3189,2334" />
+  <area shape="rect" title="Kaede Kunikida from Blue Seed" coords="3192,2261,3230,2329" />
+  <area shape="rect" title="Koume Sawaguchi from Blue Seed" coords="3233,2261,3270,2328" />
+  <area shape="rect" title="Sakura Yamazaki from Blue Seed" coords="3273,2261,3306,2328" />
+  <area shape="rect" title="Ryoko Takeuchi from Blue Seed" coords="3309,2260,3341,2331" />
+  <area shape="rect" title="Momiji Fujimiya from Blue Seed" coords="3344,2261,3374,2334" />
+  <area shape="rect" title="Mamoru Kusanagi from Blue Seed" coords="3377,2256,3420,2334" />
+  <area shape="rect" title="Daryun from The Heroic Legend of Arslan" coords="3423,2257,3470,2326" />
+  <area shape="rect" title="Prince Arslan from The Heroic Legend of Arslan" coords="3473,2265,3506,2334" />
+  <area shape="rect" title="Narsus from The Heroic Legend of Arslan" coords="3509,2258,3549,2335" />
+  <area shape="rect" title="Gieve from The Heroic Legend of Arslan" coords="3552,2259,3592,2328" />
+  <area shape="poly" title="Farangis from The Heroic Legend of Arslan" coords="3640,2333,3595,2333,3595,2261,3626,2261,3640,2274" />
+  <area shape="rect" title="Elam from The Heroic Legend of Arslan" coords="3641,2274,3677,2335" />
+  <area shape="rect" title="Alfreed from The Heroic Legend of Arslan" coords="3685,2264,3718,2352" />
+  <area shape="rect" title="Reiko Takagi from Graduation/Sailor Victory" coords="1493,2264,1536,2319" />
+  <area shape="rect" title="Kiyomi Arai from Graduation/Sailor Victory" coords="1446,2264,1485,2342" />
+  <area shape="rect" title="Shizuka Nakamoto from Graduation/Sailor Victory" coords="1402,2264,1443,2335" />
+  <area shape="rect" title="Mika Kato from Graduation/Sailor Victory" coords="1360,2267,1399,2331" />
+  <area shape="poly" title="Mami Shimura from Graduation/Sailor Victory" coords="1277,2267,1295,2334,1347,2334,1359,2267" />
+  <area shape="poly" title="Suezo from The Five Star Stories" coords="3786,2284,3786,2189,3839,2189,3839,2253,3822,2253,3822,2284" />
+  <area shape="rect" title="Anju Kitahara from Marmalade Boy" coords="652,2050,685,2112" />
+  <area shape="rect" title="Ginta Suou from Marmalade Boy" coords="616,2048,649,2112" />
+  <area shape="rect" title="Arimi Suzuki from Marmalade Boy" coords="579,2052,613,2112" />
+  <area shape="rect" title="Miki Koishikawa from Marmalade Boy" coords="539,2053,576,2115" />
+  <area shape="rect" title="Yuu Matsuura from Marmalade Boy" coords="501,2047,536,2117" />
+  <area shape="rect" title="Suzu Sakuma from Marmalade Boy" coords="458,2051,498,2114" />
+  <area shape="rect" title="Kei Tsuchiya from Marmalade Boy" coords="421,2049,455,2114" />
+  <area shape="rect" title="Satoshi Miwa from Marmalade Boy" coords="376,2049,418,2123" />
+  <area shape="rect" title="Meiko Akizuki from Marmalade Boy" coords="336,2051,373,2115" />
+  <area shape="rect" title="Shinichi Namura from Marmalade Boy" coords="294,2048,333,2120" />
+  <area shape="rect" title="Tsutomu Rokutanda from Marmalade Boy" coords="251,2050,291,2122" />
+  <area shape="rect" title="Yayoi Takase from Marmalade Boy" coords="210,2064,248,2127" />
+  <area shape="rect" title="Akira Yuki from Virtua Fighter" coords="3105,2051,3153,2119" />
+  <area shape="rect" title="Pai Chan from Virtua Fighter" coords="3156,2057,3196,2119" />
+  <area shape="rect" title="Jacky Bryant from Virtua Fighter" coords="3199,2047,3241,2111" />
+  <area shape="rect" title="Sarah Bryant from Virtua Fighter" coords="3244,2054,3290,2117" />
+  <area shape="rect" title="Lion Rafale from Virtua Fighter" coords="3293,2051,3342,2113" />
+  <area shape="rect" title="Lau Chan from Virtua Fighter" coords="3352,2053,3390,2115" />
+  <area shape="rect" title="Shun Di from Virtua Fighter" coords="3393,2062,3439,2115" />
+  <area shape="rect" title="Jeffry McWild from Virtua Fighter" coords="3442,2048,3490,2112" />
+  <area shape="rect" title="Wolf Hawkfield from Virtua Fighter" coords="3493,2052,3535,2112" />
+  <area shape="rect" title="Kage-Maru from Virtua Fighter" coords="3538,2051,3585,2112" />
+  <area shape="poly" title="Momoko Sakura from Chibi Maruko-chan" coords="3652,2069,3701,2069,3701,2122,3690,2136,3671,2136,3652,2110" />
+  <area shape="poly" title="Ryohei Yamazaki from Junk Boy" coords="3359,1339,3409,1339,3409,1419,3369,1419,3370,1389,3360,1384" />
+  <area shape="rect" title="Nora Scholar from Nora" coords="3374,1420,3415,1499" />
+  <area shape="poly" title="Ramune Baba from NG Knight Ramune & 40" coords="3475,1513,3475,1414,3416,1414,3435,1482,3435,1502,3444,1502,3444,1513" />
+  <area shape="rect" title="Milk Arara from NG Knight Ramune & 40" coords="3476,1418,3523,1511" />
+  <area shape="poly" title="Leska &quot;Café au lait&quot; Arara from NG Knight Ramune & 40" coords="3630,1432,3619,1513,3589,1513,3578,1450,3578,1421,3595,1405" />
+  <area shape="rect" title="Cocoa Arara from NG Knight Ramune & 40" coords="3526,1421,3575,1512" />
+  <area shape="rect" title="Tomo Sakurai from Cream Lemon: Lemon Angel" coords="2195,1417,2232,1484" />
+  <area shape="rect" title="Rie Ota from Lemon Angel [YJ Ban]" coords="2159,1421,2192,1484" />
+  <area shape="rect" title="Medaka Ogawa from Lemon Angel [YJ Ban]" coords="2114,1420,2156,1491" />
+  <area shape="rect" title="Satomi Yokota from Lemon Angel [YJ Ban]" coords="2071,1422,2111,1494" />
+  <area shape="poly" title="Princess Snow Kaguya from Sailor Moon S: The Movie" coords="1993,1402,2012,1397,2031,1423,2031,1503,1982,1503,1982,1433" />
+  <area shape="rect" title="Snow Dancer from Sailor Moon S: The Movie" coords="2032,1422,2066,1501" />
+  <area shape="rect" title="Snow Dancer from Sailor Moon S: The Movie" coords="1943,1425,1979,1505" />
+  <area shape="rect" title="Kakeru Ozora from Sailor Moon S: The Movie" coords="1903,1418,1940,1499" />
+  <area shape="rect" title="Himeko Nayotake from Sailor Moon S: The Movie" coords="1864,1418,1900,1497" />
+  <area shape="rect" title="Haruna Sakurada from Sailor Moon" coords="1740,1419,1775,1494" />
+  <area shape="poly" title="Seijuro Ginga from Sailor Moon R" coords="1617,1502,1582,1502,1582,1423,1605,1423,1617,1447" />
+  <area shape="rect" title="Natsumi Ginga from Sailor Moon R" coords="1540,1429,1579,1502" />
+  <area shape="rect" title="Hotaru Tomoe from Sailor Moon" coords="970,1430,1013,1497" />
+  <area shape="rect" title="Mia Alice from Dangaioh" coords="547,857,583,933" />
+  <area shape="rect" title="Pai Thunder from Dangaioh" coords="586,855,626,933" />
+  <area shape="rect" title="Roll Kran from Dangaioh" coords="629,853,669,933" />
+  <area shape="rect" title="Wendy Ryder from The Super Dimension Fortress Macross II: Lovers Again" coords="1557,1019,1594,1094" />
+  <area shape="rect" title="Feff from The Super Dimension Fortress Macross II: Lovers Again" coords="1717,1019,1766,1094" />
+  <area shape="rect" title="Lucy McMillan from Macross Plus" coords="1987,1015,2026,1096" />
+  <area shape="rect" title="Ella Fitzgerald from Macross 7" coords="2771,1012,2810,1091" />
+  <area shape="rect" title="Rivi Donen from Macross 7" coords="2732,1012,2768,1100" />
+  <area shape="poly" title="Kim Saintlaurent from Macross 7" coords="2655,1015,2693,1015,2693,1078,2678,1089,2655,1089" />
+  <area shape="rect" title="Warren Trace from Mobile Suit Victory Gundam" coords="974,1101,1009,1179" />
+  <area shape="poly" title="Suzy Relane from Mobile Suit Victory Gundam" coords="893,1113,933,1113,933,1184,908,1184,907,1165,895,1156" />
+  <area shape="rect" title="Achika Masaki from Tenchi Muyo" coords="1923,688,1961,769" />
+  <area shape="poly" title="Mayuko Inoue from Ushio and Tora" coords="1019,858,1019,925,1026,925,1026,939,1059,939,1059,858" />
+  <area shape="rect" title="Asako Nakamura from Ushio and Tora" coords="977,856,1016,924" />
+  <area shape="rect" title="Space Taxi Driver from Urusei Yatsura" coords="868,1384,902,1428" />
+  <area shape="poly" title="Mirror Demon from Urusei Yatsura" coords="914,1335,915,1344,899,1356,903,1383,868,1383,868,1342,894,1342" />
+  <area shape="poly" title="Ten's Mother from Urusei Yatsura" coords="946,1369,932,1347,917,1345,902,1361,909,1427,933,1426" />
+  <area shape="rect" title="Sahari from Genesis Survivor Gaiarth" coords="185,1789,235,1842" />
+  <area shape="rect" title="Ital Del Labard from Genesis Survivor Gaiarth" coords="147,1791,182,1842" />
+  <area shape="rect" title="Lilith Fau from Heavy Metal L-Gaim" coords="80,2323,133,2377" />
+  <area shape="rect" title="Yuri Cube from Galaxy Fraulein Yuna" coords="2614,456,2662,524" />
+  <area shape="rect" title="Yuna Kagurazaka from Galaxy Fraulein Yuna" coords="2557,454,2611,523" />
+  <area shape="rect" title="Sakura Kuriyagawa from Key the Metal Idol" coords="727,540,767,613" />
+  <area shape="rect" title="Tokiko &quot;Key&quot; Mima from Key the Metal Idol" coords="770,547,802,610" />
+  <area shape="rect" title="Alice Sakaguchi from Please Save My Earth" coords="805,547,843,618" />
+  <area shape="rect" title="Rin Kobayashi from Please Save My Earth" coords="846,552,882,618" />
+  <area shape="rect" title="Takashi Niimai from Video Girl Ai" coords="885,541,921,618" />
+  <area shape="rect" title="Moemi Hayakawa from Video Girl Ai" coords="924,543,959,617" />
+  <area shape="rect" title="Yota Moteuchi from Video Girl Ai" coords="962,541,998,612" />
+  <area shape="rect" title="Ai Amano from Video Girl Ai" coords="1001,545,1047,612" />
+  <area shape="rect" title="Lemnear from Legend of Lemnear" coords="1050,541,1098,612" />
+  <area shape="rect" title="Titaniva Mu Koshigaya from Plastic Little" coords="1101,545,1137,619" />
+  <area shape="rect" title="Ellyse Aldo Mordish from Plastic Little" coords="1140,547,1180,619" />
+  <area shape="rect" title="Alcia Grace from Relic Armor Legaciam" coords="1183,547,1220,615" />
+  <area shape="rect" title="Yoshiyuki Otomo from Bounty Dog" coords="1223,536,1260,615" />
+  <area shape="rect" title="Shoko Uzuki from Bounty Dog" coords="1263,543,1292,615" />
+  <area shape="rect" title="Ines from Bounty Dog" coords="1295,548,1340,615" />
+  <area shape="rect" title="Angela from Megami Paradise" coords="3410,1259,3459,1341" />
+  <area shape="rect" title="Pastel from Megami Paradise" coords="3359,1260,3407,1336" />
+  <area shape="rect" title="Rouge from Megami Paradise" coords="3319,1260,3356,1349" />
+  <area shape="rect" title="Maharaja from Megami Paradise" coords="3267,1255,3316,1338" />
+  <area shape="rect" title="Juliana from Megami Paradise" coords="3218,1256,3264,1333" />
+  <area shape="rect" title="Stashia from Megami Paradise" coords="3173,1256,3215,1333" />
+  <area shape="rect" title="Lilith from Megami Paradise" coords="3129,1267,3170,1341" />
+  <area shape="poly" title="Rurubell from Megami Paradise" coords="3087,1256,3127,1276,3127,1343,3068,1343,3068,1291" />
+  <area shape="poly" title="Mamamega from Megami Paradise" coords="3004,1346,3004,1261,3047,1247,3067,1290,3067,1346" />
+  <area shape="rect" title="Cecilia Irene from Mobile Suit Gundam" coords="2881,1177,2915,1257" />
+  <area shape="rect" title="Masaki from Mobile Suit Gundam" coords="2320,1180,2352,1263" />
+  <area shape="rect" title="Miharu Ratokie from Mobile Suit Gundam" coords="2281,1180,2317,1263" />
+  <area shape="rect" title="Mineva Lao Zabi from Mobile Suit Gundam" coords="1248,1189,1283,1271" />
+  <area shape="rect" title="Princess Ahanas from Windaria" coords="2997,1091,3034,1175" />
+  <area shape="rect" title="Izu from Windaria" coords="3037,1091,3072,1184" />
+  <area shape="rect" title="Marin from Windaria" coords="3075,1095,3118,1176" />
+  <area shape="rect" title="Takashi Kasuga from Kimagure Orange Road" coords="2551,1335,2599,1413" />
+  <area shape="rect" title="Madoka Ayukawa from Kimagure Orange Road" coords="2513,1344,2548,1424" />
+  <area shape="rect" title="Kyosuke Kasuga from Kimagure Orange Road" coords="2475,1344,2510,1419" />
+  <area shape="rect" title="Hikaru Hiyama from Kimagure Orange Road" coords="2436,1346,2472,1417" />
+  <area shape="rect" title="Yuusaku Hino from Kimagure Orange Road" coords="2396,1347,2432,1399" />
+  <area shape="rect" title="Akane Kasuga from Kimagure Orange Road" coords="2359,1349,2393,1422" />
+  <area shape="rect" title="Kazuya Kasuga from Kimagure Orange Road" coords="2320,1361,2356,1411" />
+  <area shape="rect" title="Kazuya Hatta from Kimagure Orange Road" coords="2279,1343,2315,1411" />
+  <area shape="rect" title="Kurumi Kasuga from Kimagure Orange Road" coords="2245,1345,2276,1411" />
+  <area shape="rect" title="Manami Kasuga from Kimagure Orange Road" coords="2205,1346,2242,1405" />
+  <area shape="poly" title="Seiji Komatsu from Kimagure Orange Road" coords="2168,1343,2186,1333,2204,1348,2204,1416,2167,1416,2168,1357" />
+  <area shape="poly" title="Red Impulse from Science Ninja Team Gatchaman" coords="2149,1343,2164,1376,2164,1419,2114,1419,2114,1343" />
+  <area shape="rect" title="Berg Katse from Science Ninja Team Gatchaman" coords="2063,1347,2111,1419" />
+  <area shape="poly" title="Joe the Condor from Science Ninja Team Gatchaman" coords="2014,1396,2024,1344,2049,1343,2059,1357,2062,1421,2031,1421" />
+  <area shape="poly" title="Ken the Eagle from Science Ninja Team Gatchaman" coords="2018,1346,1983,1346,1974,1375,1974,1424,1983,1424,1992,1398,2012,1395" />
+  <area shape="rect" title="Jun the Swan from Science Ninja Team Gatchaman" coords="1934,1353,1971,1415" />
+  <area shape="rect" title="Jinpei the Swallow from Science Ninja Team Gatchaman" coords="1888,1356,1931,1414" />
+  <area shape="rect" title="Ryu the Owl from Science Ninja Team Gatchaman" coords="1835,1342,1885,1414" />
+  <area shape="rect" title="Dr. Kozaburo Nambu from Science Ninja Team Gatchaman" coords="1791,1342,1832,1414" />
+  <area shape="poly" title="Ryu Nakanishi from Science Ninja Team Gatchaman" coords="1602,1342,1645,1342,1645,1419,1653,1435,1612,1435,1602,1412" />
+  <area shape="rect" title="Joe Asakura from Science Ninja Team Gatchaman" coords="1753,1342,1788,1416" />
+  <area shape="rect" title="Jinpei from Science Ninja Team Gatchaman" coords="1646,1361,1674,1416" />
+  <area shape="rect" title="Jun from Science Ninja Team Gatchaman" coords="1719,1351,1750,1416" />
+  <area shape="rect" title="Ken Washiro from Science Ninja Team Gatchaman" coords="1677,1342,1716,1416" />
+  <area shape="rect" title="Mr. Moroboshi from Urusei Yatsura" coords="1458,1344,1492,1420" />
+  <area shape="rect" title="Mrs. Moroboshi from Urusei Yatsura" coords="1423,1345,1455,1420" />
+  <area shape="rect" title="Sakura from Urusei Yatsura" coords="1382,1345,1420,1420" />
+  <area shape="poly" title="Ataru Moroboshi from Urusei Yatsura" coords="1169,1344,1211,1344,1199,1353,1200,1384,1221,1392,1221,1417,1169,1417" />
+  <area shape="rect" title="Benten from Urusei Yatsura" coords="1125,1344,1166,1410" />
+  <area shape="rect" title="Ran from Urusei Yatsura" coords="1084,1352,1122,1410" />
+  <area shape="poly" title="Rei (monster) from Urusei Yatsura" coords="1007,1332,1007,1344,1044,1344,1044,1415,1083,1415,1083,1352,1109,1349,1099,1320,1086,1320,1086,1326,1050,1339,1050,1332" />
+  <area shape="rect" title="Rei (oni) from Urusei Yatsura" coords="1006,1345,1041,1413" />
+  <area shape="poly" title="Mrs. Invader from Urusei Yatsura" coords="978,1345,1005,1345,1005,1428,980,1428,970,1360" />
+  <area shape="rect" title="Kurama from Urusei Yatsura" coords="485,1346,531,1423" />
+  <area shape="poly" title="Lord Ushiwaka from Urusei Yatsura" coords="473,1335,443,1335,439,1416,449,1426,484,1427,484,1346,473,1346" />
+  <area shape="poly" title="Kintaro's Bear from Urusei Yatsura" coords="390,1376,386,1409,396,1440,410,1420,437,1416,439,1371" />
+  <area shape="poly" title="Kou Oki from Hades Project Zeorymer" coords="2629,2343,2632,2343,2632,2334,2667,2334,2667,2432,2652,2432,2652,2389,2629,2389" />
+  <area shape="rect" title="Masato Akitsu from Hades Project Zeorymer" coords="2587,2343,2626,2387" />
+  <area shape="rect" title="Rayna/Rayner from Megazone 23 - Part 2 - Please Give Me Your Secret" coords="830,2340,867,2428" />
+  <area shape="rect" title="BD from Megazone 23 - Part 2 - Please Give Me Your Secret" coords="791,2326,827,2428" />
+  <area shape="rect" title="BD from Megazone 23 - Part 1" coords="744,2326,788,2428" />
+  <area shape="poly" title="Shigeru &quot;Chombo&quot; Tomota from Megazone 23 - Part 1" coords="706,2326,743,2326,743,2430,719,2430,719,2393,707,2393" />
+  <area shape="rect" title="Shogo Yahagi from Megazone 23 - Part 1" coords="665,2336,704,2391" />
+  <area shape="rect" title="Yui Takanaka from Megazone 23 - Part 1" coords="622,2336,662,2391" />
+  <area shape="rect" title="Tomomi Murashita from Megazone 23 - Part 1" coords="572,2336,619,2391" />
+  <area shape="poly" title="Mai Yumekano from Megazone 23 - Part 1" coords="527,2336,571,2336,571,2393,557,2393,557,2432,528,2432" />
+  <area shape="rect" title="Mirao Kyao from Heavy Metal L-Gaim" coords="486,2336,525,2430" />
+  <area shape="rect" title="Amu Fanneria from Heavy Metal L-Gaim" coords="442,2336,483,2430" />
+  <area shape="poly" title="Daba Myroad from Heavy Metal L-Gaim" coords="405,2336,441,2336,441,2429,414,2429,414,2393,405,2393" />
+  <area shape="rect" title="Gaw Ha Leccee from Heavy Metal L-Gaim" coords="362,2336,402,2392" />
+  <area shape="rect" title="Gavlet Gablae from Heavy Metal L-Gaim" coords="314,2336,359,2429" />
+  <area shape="rect" title="Quwasan Olibee from Heavy Metal L-Gaim" coords="235,2336,276,2431" />
+  <area shape="rect" title="Yohko Asagiri from Leda: The Fantastic Adventures of Yohko" coords="3262,447,3323,527" />
+  <area shape="rect" title="Sharon Apple (" coords="0,0,-1,-1" />
+  <area shape="rect" title="Izumi Hiyama from Living Game" coords="1052,472,1090,538" />
+  <area shape="rect" title="D from Vampire Hunter D" coords="781,439,846,544" />
+  <area shape="rect" title="Locke from Locke the Superman" coords="559,451,611,537" />
+  <area shape="poly" title="Oyuki from Urusei Yatsura" coords="1327,1388,1338,1332,1361,1329,1382,1337,1373,1435,1357,1436,1357,1388" />
+  <area shape="rect" title="Cherry from Urusei Yatsura" coords="1324,1389,1354,1433" />
+  <area shape="rect" title="Rasara Moon from Mobile Suit Gundam ZZ" coords="440,1188,482,1260" />
+  <area shape="rect" title="Sarasa Moon from Mobile Suit Gundam ZZ" coords="485,1188,524,1260" />
+  <area shape="rect" title="Milly Childer from Mobile Suit Gundam ZZ" coords="527,1186,566,1258" />
+  <area shape="rect" title="Mrs. Osaka from Sailor Moon" coords="347,1588,386,1683" />
+  <area shape="poly" title="Morga from Sailor Moon" coords="429,1681,481,1681,481,1746,463,1772,422,1773" />
+  <area shape="rect" title="Yoko Mitsurugi from Detonator Orgun" coords="298,2266,338,2333" />
+  <area shape="rect" title="Tomoru Shindo from Detonator Orgun" coords="250,2267,295,2333" />
+  <area shape="rect" title="Michi Kanzaki from Detonator Orgun" coords="207,2268,247,2333" />
+  <area shape="rect" title="Unagi Tsukijino from Let's Go!! Unagi-chan" coords="162,1912,229,1992" />
+  <area shape="rect" title="Shun Godai from Ashita e Free Kick" coords="3424,2329,3470,2390" />
+  <area shape="poly" title="Miku Himuro from Hades Project Zeorymer" coords="2543,2345,2546,2345,2546,2335,2582,2335,2582,2343,2586,2343,2586,2393,2579,2393,2579,2432,2543,2432" />
+  <area shape="rect" title="Pastel G. King from Fortune Quest" coords="2830,2058,2870,2118" />
+  <area shape="rect" title="Mink from Dragon Half" coords="3588,2062,3647,2112" />
+  <area shape="rect" title="Kumi Jefferson from Detonator Orgun" coords="156,2274,204,2333" />
+  <area shape="rect" title="Fandora from Dream Dimension Hunter Fandora" coords="3721,2332,3787,2423" />
+  <area shape="rect" title="Tadao Yokoshima from Ghost Sweeper Mikami" coords="2494,538,2533,603" />
+  <area shape="rect" title="Kinu Himuro from Ghost Sweeper Mikami" coords="2536,526,2584,599" />
+  <area shape="rect" title="Reiko Mikami from Ghost Sweeper Mikami" coords="2446,539,2491,610" />
+  <area shape="rect" title="Uzuki Toreishi from Idol Defense Force Hummingbird" coords="2917,1099,2952,1171" />
+  <area shape="rect" title="Kanna Toreishi from Idol Defense Force Hummingbird" coords="2872,1098,2914,1174" />
+  <area shape="rect" title="Satsuki Toreishi from Idol Defense Force Hummingbird" coords="2827,1097,2869,1174" />
+  <area shape="rect" title="Yayoi Toreishi from Idol Defense Force Hummingbird" coords="2786,1097,2824,1174" />
+  <area shape="rect" title="Mina Toreishi from Idol Defense Force Hummingbird" coords="2726,1103,2783,1168" />
+  <area shape="poly" title="Fei-Oh from 3x3 Eyes" coords="184,580,184,609,235,609,235,560,295,538,331,559,331,585,289,621,216,647,174,637,158,599" />
+  <area shape="rect" title="Azusa Kanzaki from Devil Hunter Yohko" coords="2275,543,2316,610" />
+  <area shape="rect" title="Yohko Mano from Devil Hunter Yohko" coords="2227,537,2272,610" />
+  <area shape="rect" title="Hitomi Kisugi from Cat's Eye" coords="3034,845,3074,927" />
+  <area shape="rect" title="Rui Kisugi from Cat's Eye" coords="2995,844,3031,927" />
+  <area shape="rect" title="Ai Kisugi from Cat's Eye" coords="2955,844,2992,934" />
+  <area shape="rect" title="Mew Fumizuki from Hyper Doll" coords="1534,370,1598,441" />
+  <area shape="rect" title="Mica Minazuki from Hyper Doll" coords="1469,368,1525,446" />
+  <area shape="rect" title="Kamidake from Tenchi Muyo" coords="2878,687,2939,766" />
+  <area shape="rect" title="Azaka from Tenchi Muyo" coords="1862,687,1920,769" />
+  <area shape="poly" title="Yuki Mori from Space Battleship Yamato" coords="2250,196,2243,155,2227,135,2245,108,2265,119,2266,178" />
+  <area shape="rect" title="Tasuki from Fushigi Yuugi" coords="1486,852,1531,926" />
+  <area shape="rect" title="Chichiri from Fushigi Yuugi" coords="1439,853,1483,928" />
+  <area shape="rect" title="Chiriko from Fushigi Yuugi" coords="1407,874,1436,928" />
+  <area shape="rect" title="Mitsukake from Fushigi Yuugi" coords="1363,846,1404,932" />
+  <area shape="rect" title="Nuriko from Fushigi Yuugi" coords="1322,854,1360,939" />
+  <area shape="rect" title="Hotohori from Fushigi Yuugi" coords="1281,852,1319,939" />
+  <area shape="rect" title="Tamahome from Fushigi Yuugi" coords="1235,854,1278,939" />
+  <area shape="rect" title="Miaka Yuuki from Fushigi Yuugi" coords="1191,858,1232,939" />
+  <area shape="rect" title="Yui Hongo from Fushigi Yuugi" coords="1149,858,1188,939" />
+  <area shape="poly" title="Snake from The Irresponsible Captain Tylor" coords="2906,1833,2943,1833,2957,1861,2906,1896" />
+  <area shape="rect" title="Angel from The Irresponsible Captain Tylor" coords="2779,1827,2829,1876" />
+  <area shape="poly" title="Emperor from The Irresponsible Captain Tylor" coords="2995,1819,3000,1834,2959,1861,2946,1834,2955,1831,2954,1819" />
+  <area shape="rect" title="Jason from The Irresponsible Captain Tylor" coords="2867,1833,2903,1883" />
+  <area shape="rect" title="Charly from The Irresponsible Captain Tylor" coords="2666,1829,2724,1873" />
+  <area shape="rect" title="Bunta from The Irresponsible Captain Tylor" coords="2726,1832,2776,1869" />
+  <area shape="rect" title="Karl Björn Andressen from The Irresponsible Captain Tylor" coords="2609,1829,2663,1901" />
+  <area shape="rect" title="Mickey Cryburn from The Irresponsible Captain Tylor" coords="2544,1829,2606,1910" />
+  <area shape="rect" title="Keiko Yukimura from Yu Yu Hakusho" coords="672,858,708,939" />
+  <area shape="rect" title="Luna Kozuki from Casshern" coords="3262,1341,3304,1405" />
+  <area shape="poly" title="Friender from Casshern" coords="3306,1379,3307,1405,3321,1424,3343,1415,3367,1423,3368,1391,3345,1376" />
+  <area shape="rect" title="Casshern from Casshern" coords="3217,1336,3259,1404" />
+  <area shape="rect" title="Yoko Tanaka from Idol Angel Welcome Yoko" coords="3518,1259,3570,1339" />
+  <area shape="rect" title="Momo from Magical Princess Minky Momo" coords="3462,1262,3515,1339" />
+  <area shape="rect" title="Leahlee Edeberry from Mobile Suit Gundam F91" coords="1465,1266,1501,1341" />
+  <area shape="rect" title="Birgit Pirjo from Mobile Suit Gundam F91" coords="1385,1265,1425,1342" />
+  <area shape="rect" title="Leah Mariba from Mobile Suit Gundam F91" coords="1213,1299,1256,1338" />
+  <area shape="rect" title="Kochun Hein from Mobile Suit Gundam F91" coords="1216,1268,1243,1296" />
+  <area shape="rect" title="Arthur Jung from Mobile Suit Gundam F91" coords="1172,1264,1211,1341" />
+  <area shape="poly" title="Dwight Camry from Mobile Suit Gundam F91" coords="1135,1264,1124,1343,1171,1343,1172,1264" />
+  <area shape="poly" title="George Azuma from Mobile Suit Gundam F91" coords="1131,1270,1086,1270,1086,1319,1100,1319,1111,1348,1122,1348" />
+  <area shape="poly" title="Bertuo Rodriguez from Mobile Suit Gundam F91" coords="1085,1270,1051,1270,1051,1337,1085,1325" />
+  <area shape="rect" title="Sam Ehrug from Mobile Suit Gundam F91" coords="1007,1265,1048,1329" />
+  <area shape="poly" title="Dorothy Moore from Mobile Suit Gundam F91" coords="984,1344,961,1328,961,1264,1006,1264,1006,1344" />
+  <area shape="rect" title="Thetis from Sailor Moon" coords="1116,1672,1151,1742" />
+  <area shape="rect" title="Sakiko from Sailor Moon" coords="1311,1606,1352,1672" />
+  <area shape="rect" title="Kazuko Tadashita from Sailor Moon" coords="1492,1590,1524,1671" />
+  <area shape="rect" title="Hiromi Matsuo from Sailor Moon" coords="1585,1589,1617,1671" />
+  <area shape="rect" title="Princess Diamond from Sailor Moon" coords="1620,1595,1667,1670" />
+  <area shape="rect" title="Tamasaburo from Sailor Moon" coords="3002,1593,3045,1664" />
+  <area shape="rect" title="Maya Tohno from Sailor Moon" coords="2946,1593,2999,1664" />
+  <area shape="rect" title="Queen Nehelenia from Sailor Moon" coords="3168,1500,3221,1587" />
+  <area shape="rect" title="Fisheye from Sailor Moon" coords="3128,1500,3165,1587" />
+  <area shape="rect" title="Tiger's Eye from Sailor Moon" coords="3086,1500,3125,1587" />
+  <area shape="rect" title="Hawk's Eye from Sailor Moon" coords="3041,1496,3083,1587" />
+  <area shape="rect" title="Souichi Tomoe (possessed) from Sailor Moon" coords="2949,1501,2990,1590" />
+  <area shape="rect" title="Koan from Sailor Moon" coords="2821,1501,2863,1584" />
+  <area shape="rect" title="Berthier from Sailor Moon" coords="2782,1505,2818,1585" />
+  <area shape="poly" title="Calaveras from Sailor Moon" coords="2744,1499,2781,1499,2781,1581,2774,1596,2765,1568,2744,1568" />
+  <area shape="rect" title="Petz from Sailor Moon" coords="2700,1499,2741,1590" />
+  <area shape="rect" title="Rubeus from Sailor Moon" coords="2658,1499,2697,1590" />
+  <area shape="rect" title="Chacha from Akazukin Chacha" coords="2536,1427,2581,1496" />
+  <area shape="poly" title="Savoia S.21F from Porco Rosso" coords="2875,307,2852,408,2931,435,3049,396,3056,350,3020,343,3020,400,2979,400,2933,382,2937,314" />
+  <area shape="poly" title="Mikado Sanzenin from Ranma ½" coords="314,903,347,913,342,960,322,957,306,959,313,926,304,918" />
+  <area shape="poly" title="Betty from Ranma ½" coords="303,920,311,926,307,950,289,946,286,926" />
+  <area shape="poly" title="Dr. Tofu Ono from Ranma ½" coords="244,949,245,901,270,928,284,925,287,948,297,951,297,958,277,958,274,980,254,976,255,958" />
+  <area shape="poly" title="Tsubasa Kurenai from Ranma ½" coords="201,990,202,961,239,949,253,962,252,976,234,972,232,990" />
+  <area shape="poly" title="Sasuke Sarugakure from Ranma ½" coords="133,970,156,975,152,1013,127,996" />
+  <area shape="poly" title="Cat Shampoo from Ranma ½" coords="233,1007,268,1009,273,983,236,975" />
+  <area shape="poly" title="Akane Tendo from Ranma ½" coords="197,1032,230,1032,231,1052,225,1061,226,1071,205,1067,191,1050" />
+  <area shape="poly" title="Nabiki Tendo from Ranma ½" coords="201,1069,227,1074,233,1098,217,1124,180,1105,178,1079" />
+  <area shape="poly" title="Sir&egrave;ne from Devilman" coords="377,1099,431,1092,461,1101,421,1163,404,1161,367,1119" />
+  <area shape="poly" title="Devilman from Devilman" coords="317,1175,328,1149,346,1134,376,1140,398,1167,389,1196,361,1212" />
+  <area shape="poly" title="Z-001 from Roujin Z" coords="214,1639,214,1660,171,1660,171,1706,214,1706,217,1636,239,1605,262,1605,262,1645,243,1658,233,1709,246,1754,239,1771,143,1771,143,1640" />
+  <area shape="rect" title="Kijuro Takazawa from Roujin Z" coords="173,1662,211,1702" />
+  <area shape="rect" title="Haruko Mihashi from Roujin Z" coords="169,1573,214,1635" />
+  <area shape="rect" title="Subaru Sumeragi from Tokyo Babylon" coords="742,2122,782,2196" />
+  <area shape="poly" title="Hokuto Sumeragi from Tokyo Babylon" coords="697,2122,741,2122,741,2198,708,2198,708,2176,697,2176" />
+  <area shape="rect" title="Seishiro Sakurazuka from Tokyo Babylon" coords="649,2116,694,2175" />
+  <area shape="rect" title="Taeko Okajima (child) from Only Yesterday" coords="3685,2355,3718,2423" />
+  <area shape="rect" title="Taeko Okajima (adult) from Only Yesterday" coords="3643,2338,3682,2423" />
+  <area shape="rect" title="Shohei Harada from Touch" coords="3314,588,3359,662" />
+  <area shape="rect" title="Kotaro Matsudaira from Touch" coords="3268,609,3311,658" />
+  <area shape="rect" title="Kazuya Uesugi from Touch" coords="3228,607,3265,652" />
+  <area shape="rect" title="Tatsuya Uesugi from Touch" coords="3189,608,3225,671" />
+  <area shape="rect" title="Minami Asakura from Touch" coords="3149,610,3186,671" />
+  <area shape="rect" title="Akio Nitta from Touch" coords="3110,609,3146,679" />
+  <area shape="rect" title="Princess Hinoto from X" coords="3188,1092,3249,1176" />
+  <area shape="rect" title="Kamui from X" coords="3121,1091,3185,1175" />
+  <area shape="poly" title="Karla the Grey Witch from Record of Lodoss War" coords="2725,1159,2704,1177,2679,1177,2679,1090,2693,1080,2725,1080" />
+  <area shape="rect" title="Pirotess from Record of Lodoss War" coords="2635,1090,2676,1176" />
+  <area shape="poly" title="Lord Ashram from Record of Lodoss War" coords="2607,1078,2620,1078,2620,1090,2634,1090,2634,1179,2574,1179,2574,1108" />
+  <area shape="poly" title="Naneel from Record of Lodoss War" coords="2535,1100,2568,1100,2573,1110,2573,1179,2535,1179" />
+  <area shape="rect" title="Ghim from Record of Lodoss War" coords="2474,1104,2532,1179" />
+  <area shape="poly" title="Slayn from Record of Lodoss War" coords="2473,1104,2473,1187,2416,1187,2416,1097,2468,1097,2468,1104" />
+  <area shape="poly" title="Woodchuck from Record of Lodoss War" coords="2415,1097,2369,1097,2369,1179,2415,1166" />
+  <area shape="rect" title="Etoh from Record of Lodoss War" coords="2325,1097,2366,1177" />
+  <area shape="rect" title="Deedlit from Record of Lodoss War" coords="2274,1097,2322,1177" />
+  <area shape="poly" title="Parn from Record of Lodoss War" coords="2249,1164,2230,1178,2223,1178,2223,1097,2273,1097,2273,1190" />
+  <area shape="rect" title="Shiris from Record of Lodoss War" coords="2173,1097,2220,1177" />
+  <area shape="rect" title="Orson from Record of Lodoss War" coords="2115,1098,2170,1169" />
+  <area shape="poly" title="Linna Yamazaki (hardsuit) from Bubblegum Crisis" coords="363,1098,351,1073,374,1029,404,1018,410,1035,441,1053,432,1091" />
+  <area shape="poly" title="Priss Asagiri (hardsuit) from Bubblegum Crisis" coords="422,966,474,967,472,1016,455,1045,412,1032,403,996,423,979" />
+  <area shape="poly" title="Sylia Stingray (hardsuit) from Bubblegum Crisis" coords="141,800,179,788,214,810,187,860,163,849,162,862,151,861" />
+  <area shape="rect" title="Nene Romanova (hardsuit) from Bubblegum Crisis" coords="70,810,139,876" />
+  <area shape="poly" title="Nene Romanova (maid disguise) from Bubblegum Crisis" coords="3442,1912,3486,1901,3492,1971,3447,1966" />
+  <area shape="poly" title="Linna Yamazaki (testing suit) from Bubblegum Crisis" coords="3438,1900,3400,1904,3405,1959,3445,1967" />
+  <area shape="poly" title="Priss Asagiri (&quot;dressy&quot; leathers, mid-series art shift) from Bubblegum Crisis" coords="3361,1902,3399,1902,3404,1961,3366,1956" />
+  <area shape="poly" title="Leon McNichol (body armor) from Bubblegum Crisis" coords="3365,1958,3325,1981,3325,1900,3359,1900" />
+  <area shape="rect" title="Dr. Miriam Yoshida from Bubblegum Crisis" coords="3271,1897,3321,1977" />
+  <area shape="rect" title="Lisa Vanette from Bubblegum Crisis" coords="3226,1906,3268,1976" />
+  <area shape="rect" title="Nene Romanova (traffic uniform) from Bubblegum Crisis" coords="3183,1904,3223,1975" />
+  <area shape="rect" title="Priss Asagiri (&quot;active&quot; leathers, mid-series art shift) from Bubblegum Crisis" coords="3140,1901,3180,1972" />
+  <area shape="poly" title="Linna Yamazaki (mid-series art shift) from Bubblegum Crisis" coords="3097,1946,3115,1983,3139,1973,3139,1900,3097,1900" />
+  <area shape="poly" title="Sylia Stingray (opera outfit) from Bubblegum Crisis" coords="3054,1898,3094,1898,3095,1948,3056,1970" />
+  <area shape="rect" title="Naoko from Bubblegum Crisis" coords="3008,1904,3051,1980" />
+  <area shape="rect" title="Brian J. Mason from Bubblegum Crisis" coords="2907,1905,2955,1980" />
+  <area shape="rect" title="Dr. Richard McLaren from Bubblegum Crisis" coords="2864,1904,2904,1982" />
+  <area shape="rect" title="Vision (call girl disguise) from Bubblegum Crisis" coords="2815,1902,2861,1979" />
+  <area shape="rect" title="Vision (press conference) from Bubblegum Crisis" coords="2762,1900,2812,1979" />
+  <area shape="rect" title="Vision (combat suit) from Bubblegum Crisis" coords="2714,1905,2759,1979" />
+  <area shape="rect" title="Vision (&quot;Say Yes!&quot; movie outfit) from Bubblegum Crisis" coords="2666,1906,2711,1979" />
+  <area shape="rect" title="Vision (&quot;Say Yes!&quot; stage outfit) from Bubblegum Crisis" coords="2614,1904,2663,1980" />
+  <area shape="rect" title="Anri (episode 6) from Bubblegum Crisis" coords="2580,1917,2611,1981" />
+  <area shape="rect" title="Largo (transformed) from Bubblegum Crisis" coords="2532,1913,2577,1982" />
+  <area shape="rect" title="Leon McNichol (mid-series art shift) from Bubblegum Crisis" coords="2482,1913,2529,1983" />
+  <area shape="rect" title="Chief Todo from Bubblegum Crisis" coords="2426,1921,2478,1983" />
+  <area shape="poly" title="Kate Madigan from Bubblegum Crisis" coords="2404,1903,2425,1920,2421,1984,2384,1983,2384,1913" />
+  <area shape="rect" title="Fargo from Bubblegum Crisis" coords="2346,1912,2380,1975" />
+  <area shape="rect" title="Largo from Bubblegum Crisis" coords="2304,1913,2343,1972" />
+  <area shape="rect" title="Anri (episode 5) from Bubblegum Crisis" coords="2264,1913,2301,1976" />
+  <area shape="rect" title="Sylvie from Bubblegum Crisis" coords="2227,1916,2261,1976" />
+  <area shape="rect" title="Nam from Bubblegum Crisis" coords="2189,1916,2224,1972" />
+  <area shape="rect" title="Lou from Bubblegum Crisis" coords="2153,1915,2186,1993" />
+  <area shape="rect" title="Meg from Bubblegum Crisis" coords="2111,1913,2150,1978" />
+  <area shape="rect" title="Priss Asagiri (&quot;Touchdown to Tomorrow&quot;, stage) from Bubblegum Crisis" coords="2059,1912,2108,1978" />
+  <area shape="rect" title="Nene Romanova (&quot;Touchdown to Tomorrow&quot;, stage) from Bubblegum Crisis" coords="2021,1911,2056,1975" />
+  <area shape="rect" title="Sylia Stingray (&quot;Touchdown to Tomorrow&quot;, stage) from Bubblegum Crisis" coords="1982,1909,2018,1982" />
+  <area shape="rect" title="Linna Yamazaki (&quot;Touchdown to Tomorrow&quot;, stage) from Bubblegum Crisis" coords="1940,1910,1979,1982" />
+  <area shape="rect" title="Priss Asagiri (&quot;Touchdown to Tomorrow&quot;, flashback) from Bubblegum Crisis" coords="1897,1911,1937,1983" />
+  <area shape="rect" title="Mackie Stingray (shop coveralls) from Bubblegum Crisis" coords="1861,1913,1894,1983" />
+  <area shape="rect" title="Priss Asagiri (dress borrowed from Linna) from Bubblegum Crisis" coords="1818,1908,1858,1979" />
+  <area shape="rect" title="Dr. Raven from Bubblegum Crisis" coords="1771,1910,1815,1978" />
+  <area shape="rect" title="Naomi Anderson from Bubblegum Crisis" coords="1738,1907,1768,1981" />
+  <area shape="rect" title="J.B. Gibson from Bubblegum Crisis" coords="1700,1902,1735,1984" />
+  <area shape="rect" title="Sylia Stingray (store manager) from Bubblegum Crisis" coords="1659,1902,1697,1984" />
+  <area shape="rect" title="Linna Yamazaki (casual wear) from Bubblegum Crisis" coords="1618,1907,1656,1984" />
+  <area shape="rect" title="Nene Romanova (undersuit) from Bubblegum Crisis" coords="1579,1910,1615,1984" />
+  <area shape="rect" title="Priss Asagiri (casual wear) from Bubblegum Crisis" coords="1543,1905,1576,1982" />
+  <area shape="circle" title="Sho from Bubblegum Crisis" coords="1522,1941,19" />
+  <area shape="poly" title="Sho's mother from Bubblegum Crisis" coords="1464,1906,1501,1906,1503,1960,1487,1983,1464,1970" />
+  <area shape="rect" title="Priss Asagiri (&quot;dressy&quot; leathers) from Bubblegum Crisis" coords="1342,1907,1382,1986" />
+  <area shape="rect" title="Nene Romanova (civvies) from Bubblegum Crisis" coords="1299,1913,1339,1981" />
+  <area shape="rect" title="Linna Yamazaki (casual wear) from Bubblegum Crisis" coords="1258,1910,1296,1981" />
+  <area shape="rect" title="Irene Chang from Bubblegum Crisis" coords="1223,1913,1255,1981" />
+  <area shape="rect" title="Assassin Boomer (episode 2) from Bubblegum Crisis" coords="1127,1903,1167,1984" />
+  <area shape="rect" title="Bodyguard Boomers (episode 2) from Bubblegum Crisis" coords="1047,1911,1124,1984" />
+  <area shape="rect" title="Nene Romanova (&quot;Touchdown to Tomorrow&quot;, flashback) from Bubblegum Crisis" coords="1001,1912,1044,1984" />
+  <area shape="rect" title="Linna Yamazaki (&quot;Touchdown to Tomorrow&quot;, flashback) from Bubblegum Crisis" coords="961,1907,998,1986" />
+  <area shape="rect" title="Young Sylia Stingray (episode 1) from Bubblegum Crisis" coords="924,1913,958,1985" />
+  <area shape="rect" title="Young Mackie Stingray (episode 1) from Bubblegum Crisis" coords="889,1919,921,1983" />
+  <area shape="rect" title="Priss Asagiri (riding leathers) from Bubblegum Crisis" coords="849,1913,886,1981" />
+  <area shape="rect" title="Leon McNichol from Bubblegum Crisis" coords="811,1904,846,1987" />
+  <area shape="rect" title="Daley Wong from Bubblegum Crisis" coords="776,1908,808,1981" />
+  <area shape="rect" title="Mackie Stingray (casual wear) from Bubblegum Crisis" coords="737,1909,773,1982" />
+  <area shape="rect" title="USSD Commander from Bubblegum Crisis" coords="509,1917,557,1985" />
+  <area shape="rect" title="Prototype Boomer from Bubblegum Crisis" coords="467,1954,506,1981" />
+  <area shape="rect" title="Katsuhito Stingray from Bubblegum Crisis" coords="467,1908,506,1951" />
+  <area shape="rect" title="Cynthia from Bubblegum Crisis" coords="423,1924,464,1981" />
+  <area shape="rect" title="Male Boomer (episode 1) from Bubblegum Crisis" coords="387,1910,420,1981" />
+  <area shape="rect" title="&quot;F.G. Frederick&quot; from Bubblegum Crisis" coords="340,1909,384,1982" />
+  <area shape="rect" title="&quot;Bogey&quot; (episode 1) from Bubblegum Crisis" coords="291,1905,337,1982" />
+  <area shape="rect" title="Female Boomer (episode 1) from Bubblegum Crisis" coords="249,1914,288,1979" />
+  <area shape="rect" title="Nuku Nuku from All Purpose Cultural Cat Girl Nuku Nuku" coords="2958,2268,2996,2340" />
+  <area shape="rect" title="Kyusaku Natsume from All Purpose Cultural Cat Girl Nuku Nuku" coords="2912,2264,2955,2338" />
+  <area shape="poly" title="Buaku from Dominion: Tank Police" coords="3821,1453,3873,1450,3873,1507,3835,1508" />
+  <area shape="rect" title="Chief from Dominion: Tank Police" coords="3800,1266,3866,1349" />
+  <area shape="poly" title="Charles Brenten from Dominion: Tank Police" coords="3646,1262,3680,1262,3751,1282,3728,1302,3700,1302,3700,1351,3681,1350,3676,1332,3646,1333" />
+  <area shape="rect" title="Jim E. Lovelock from Dominion: Tank Police" coords="3605,1262,3643,1332" />
+  <area shape="rect" title="Al Cu Ad Solte from Dominion: Tank Police" coords="3701,1303,3741,1347" />
+  <area shape="rect" title="Leona Ozaki from Dominion: Tank Police" coords="3744,1302,3796,1347" />
+  <area shape="poly" title="Greenpeace Crolis from Dominion: Tank Police" coords="3805,1369,3890,1365,3888,1430,3819,1432" />
+  <area shape="poly" title="Bonaparte from Dominion: Tank Police" coords="3660,1507,3703,1351,3795,1350,3832,1509" />
+  <area shape="rect" title="Jim Warston from Genesis Climber MOSPEADA" coords="3277,1017,3322,1091" />
+  <area shape="rect" title="Mint Labule from Genesis Climber MOSPEADA" coords="3235,1017,3274,1089" />
+  <area shape="rect" title="Solzie from Genesis Climber MOSPEADA" coords="3198,1017,3232,1088" />
+  <area shape="rect" title="Yellow Belmont from Genesis Climber MOSPEADA" coords="3158,1012,3195,1088" />
+  <area shape="rect" title="Houquet et Rose from Genesis Climber MOSPEADA" coords="3121,1014,3155,1088" />
+  <area shape="rect" title="Ray from Genesis Climber MOSPEADA" coords="3080,1015,3118,1092" />
+  <area shape="rect" title="Stick Bernard from Genesis Climber MOSPEADA" coords="3039,1015,3077,1088" />
+  <area shape="rect" title="Aisha from Genesis Climber MOSPEADA" coords="2997,1010,3036,1088" />
+  <area shape="rect" title="Refless from Genesis Climber MOSPEADA" coords="2944,1010,2994,1088" />
+  <area shape="rect" title="Yoko Tia Noto from Bastard!!" coords="616,621,648,696" />
+  <area shape="rect" title="Dark Schneider from Bastard!!" coords="577,607,613,686" />
+  <area shape="rect" title="Princess Sheila from Bastard!!" coords="537,620,574,685" />
+  <area shape="poly" title="King from Nadia: The Secret of Blue Water" coords="1075,297,1108,272,1160,302,1138,328,1100,329" />
+  <area shape="rect" title="Avatar from Super Atragon" coords="720,77,790,166" />
+  <area shape="poly" title="Go Arisaka from Super Atragon" coords="978,92,984,159,1025,167,1017,93" />
+  <area shape="poly" title="Annette from Super Atragon" coords="930,88,943,154,981,161,973,80" />
+  <area shape="rect" title="Ryo Saeba from City Hunter" coords="2299,2334,2343,2430" />
+  <area shape="rect" title="Kaori Makimura from City Hunter" coords="2346,2344,2406,2430" />
+  <area shape="rect" title="Saeko Nogami from City Hunter" coords="2409,2346,2447,2431" />
+  <area shape="rect" title="Lady Une from Mobile Suit Gundam Wing" coords="2956,1261,3001,1344" />
+  <area shape="rect" title="Treize Khushrenada from Mobile Suit Gundam Wing" coords="2904,1260,2953,1344" />
+  <area shape="rect" title="Lucrezia Noin from Mobile Suit Gundam Wing" coords="2857,1266,2901,1343" />
+  <area shape="rect" title="Zechs Merquise from Mobile Suit Gundam Wing" coords="2794,1266,2854,1339" />
+  <area shape="rect" title="Heero Yuy from Mobile Suit Gundam Wing" coords="2717,1264,2755,1343" />
+  <area shape="rect" title="Duo Maxwell from Mobile Suit Gundam Wing" coords="2671,1264,2714,1344" />
+  <area shape="rect" title="Trowa Barton from Mobile Suit Gundam Wing" coords="2626,1265,2668,1338" />
+  <area shape="rect" title="Quatre Rarerba Winner from Mobile Suit Gundam Wing" coords="2577,1266,2623,1332" />
+  <area shape="rect" title="Chang Wufei from Mobile Suit Gundam Wing" coords="2533,1266,2574,1332" />
+  <area shape="rect" title="Aiguille Delaz from Mobile Suit Gundam 0083: Stardust Memory" coords="2468,1266,2530,1341" />
+  <area shape="rect" title="Deatroaf Kocsel from Mobile Suit Gundam 0083: Stardust Memory" coords="2415,1265,2465,1343" />
+  <area shape="poly" title="Cima Garahau from Mobile Suit Gundam 0083: Stardust Memory" coords="2414,1266,2365,1273,2365,1345,2414,1345" />
+  <area shape="poly" title="Anavel Gato from Mobile Suit Gundam 0083: Stardust Memory" coords="2318,1355,2318,1266,2354,1266,2354,1275,2364,1273,2364,1343,2352,1355" />
+  <area shape="rect" title="Kou Uraki from Mobile Suit Gundam 0083: Stardust Memory" coords="2275,1266,2315,1340" />
+  <area shape="rect" title="Nina Purpleton from Mobile Suit Gundam 0083: Stardust Memory" coords="2232,1267,2272,1342" />
+  <area shape="poly" title="Mora Boscht from Mobile Suit Gundam 0083: Stardust Memory" coords="2231,1267,2186,1267,2186,1330,2202,1345,2231,1345" />
+  <area shape="poly" title="Chuck Keith from Mobile Suit Gundam 0083: Stardust Memory" coords="2185,1269,2150,1269,2150,1341,2156,1356,2167,1356,2167,1342,2185,1332" />
+  <area shape="rect" title="Chap Adel from Mobile Suit Gundam 0083: Stardust Memory" coords="2106,1269,2147,1340" />
+  <area shape="rect" title="Bernard Monsha from Mobile Suit Gundam 0083: Stardust Memory" coords="2055,1268,2103,1344" />
+  <area shape="rect" title="Alpha Bate from Mobile Suit Gundam 0083: Stardust Memory" coords="2014,1267,2052,1340" />
+  <area shape="rect" title="South Burning from Mobile Suit Gundam 0083: Stardust Memory" coords="1969,1267,2011,1343" />
+  <area shape="rect" title="Eiphar Synapse from Mobile Suit Gundam 0083: Stardust Memory" coords="1926,1267,1966,1350" />
+  <area shape="rect" title="Raban Karcs from Mobile Suit Gundam 0083: Stardust Memory" coords="1828,1266,1878,1339" />
+  <area shape="rect" title="Nick Orville from Mobile Suit Gundam 0083: Stardust Memory" coords="1784,1267,1825,1337" />
+  <area shape="rect" title="Lucette Audevie from Mobile Suit Gundam 0083: Stardust Memory" coords="1743,1266,1781,1339" />
+  <area shape="poly" title="Cecily Fairchild from Mobile Suit Gundam F91" coords="923,1262,960,1262,960,1320,931,1345,922,1342" />
+  <area shape="poly" title="Seabook Arno from Mobile Suit Gundam F91" coords="881,1256,920,1260,919,1332,893,1341,880,1341,880,1327,874,1309,882,1287" />
+  <area shape="poly" title="Reese Arno from Mobile Suit Gundam F91" coords="835,1277,867,1269,879,1288,871,1308,876,1333,863,1342,835,1342" />
+  <area shape="rect" title="Monica Arno from Mobile Suit Gundam F91" coords="797,1269,832,1341" />
+  <area shape="rect" title="Leslia Arno from Mobile Suit Gundam F91" coords="751,1266,794,1348" />
+  <area shape="rect" title="Iron Mask from Mobile Suit Gundam F91" coords="688,1260,748,1343" />
+  <area shape="rect" title="Meitzer Ronah from Mobile Suit Gundam F91" coords="638,1259,685,1333" />
+  <area shape="rect" title="&#39;Berah Ronah&#39; from Mobile Suit Gundam F91" coords="598,1261,635,1347" />
+  <area shape="rect" title="Zabine Chareax from Mobile Suit Gundam F91" coords="554,1261,595,1340" />
+  <area shape="rect" title="Dorel Ronah from Mobile Suit Gundam F91" coords="514,1263,551,1340" />
+  <area shape="rect" title="Annamarie Bourget from Mobile Suit Gundam F91" coords="474,1263,511,1343" />
+  <area shape="rect" title="Gillet Krueger from Mobile Suit Gundam F91" coords="425,1263,471,1332" />
+  <area shape="rect" title="Kate Bush from Mobile Suit Victory Gundam" coords="689,1103,724,1176" />
+  <area shape="rect" title="Connie Francis from Mobile Suit Victory Gundam" coords="650,1103,686,1175" />
+  <area shape="rect" title="Mahalia Merril from Mobile Suit Victory Gundam" coords="601,1103,647,1175" />
+  <area shape="rect" title="Junko Jenko from Mobile Suit Victory Gundam" coords="558,1103,598,1182" />
+  <area shape="rect" title="Peggy Lee from Mobile Suit Victory Gundam" coords="512,1103,555,1183" />
+  <area shape="rect" title="Helen Jackson from Mobile Suit Victory Gundam" coords="464,1103,509,1185" />
+  <area shape="poly" title="Ross Sylibus from Armitage III" coords="3339,1003,3378,1003,3378,1012,3384,1012,3384,1100,3366,1100,3365,1080,3325,1069,3325,1027,3339,1027" />
+  <area shape="rect" title="Naomi Armitage from Armitage III" coords="3385,1012,3432,1098" />
+  <area shape="rect" title="Milia Fallyna Jenius from Macross 7" coords="2908,1014,2941,1095" />
+  <area shape="rect" title="Maximilian Jenius from Macross 7" coords="2858,1009,2905,1090" />
+  <area shape="rect" title="Gamlin Kizaki from Macross 7" coords="2813,1009,2855,1094" />
+  <area shape="rect" title="Miho Miho from Macross 7" coords="2694,1017,2729,1077" />
+  <area shape="rect" title="Sally S. Ford from Macross 7" coords="2621,1013,2652,1087" />
+  <area shape="poly" title="Basara Nekki from Macross 7" coords="2568,1040,2559,1004,2598,1004,2618,1048,2605,1078,2572,1105" />
+  <area shape="rect" title="Guvava from Macross 7" coords="2552,1044,2565,1067" />
+  <area shape="rect" title="Mylene Flare Jenius from Macross 7" coords="2514,1015,2549,1097" />
+  <area shape="rect" title="Ray Lovelock from Macross 7" coords="2469,1014,2511,1101" />
+  <area shape="rect" title="Veffidas Feaze from Macross 7" coords="2426,1012,2466,1093" />
+  <area shape="rect" title="Marge Gueldoa from Macross Plus" coords="2139,1011,2186,1094" />
+  <area shape="rect" title="Millard Johnson from Macross Plus" coords="2083,1016,2136,1095" />
+  <area shape="rect" title="Yang Neumann from Macross Plus" coords="2029,1015,2080,1095" />
+  <area shape="rect" title="Sylvie Gena from The Super Dimension Fortress Macross II: Lovers Again" coords="1678,1020,1714,1095" />
+  <area shape="rect" title="Ishtar from The Super Dimension Fortress Macross II: Lovers Again" coords="1641,1018,1676,1099" />
+  <area shape="rect" title="Hibiki Kanzaki from The Super Dimension Fortress Macross II: Lovers Again" coords="1597,1019,1638,1097" />
+  <area shape="poly" title="Ibuki Yagami from Maison Ikkoku" coords="1146,964,1146,942,1187,942,1187,1012,1182,1012,1182,1021,1155,1021,1155,964" />
+  <area shape="rect" title="Kazuma Kuwabara from Yu Yu Hakusho" coords="925,854,974,932" />
+  <area shape="rect" title="Yusuke Urameshi from Yu Yu Hakusho" coords="884,855,922,932" />
+  <area shape="rect" title="Kurama from Yu Yu Hakusho" coords="841,856,881,932" />
+  <area shape="rect" title="Hiei from Yu Yu Hakusho" coords="800,853,838,936" />
+  <area shape="rect" title="Botan from Yu Yu Hakusho" coords="754,855,797,938" />
+  <area shape="rect" title="Koenma from Yu Yu Hakusho" coords="711,858,751,939" />
+  <area shape="rect" title="Tokimi from Tenchi Muyo" coords="2820,680,2875,764" />
+  <area shape="rect" title="Kagato from Tenchi Muyo" coords="2727,679,2768,765" />
+  <area shape="rect" title="Katsuhito Masaki from Tenchi Muyo" coords="2682,679,2724,771" />
+  <area shape="rect" title="Nobuyuki Masaki from Tenchi Muyo" coords="2630,680,2679,771" />
+  <area shape="rect" title="Setsuko from Grave of the Fireflies" coords="2662,562,2695,610" />
+  <area shape="rect" title="Seita from Grave of the Fireflies" coords="2625,542,2659,610" />
+  <area shape="rect" title="Boy from Cannon Fodder" coords="3821,1973,3869,2030" />
+  <area shape="poly" title="Marie en Carlsberg from Nadia: The Secret of Blue Water" coords="1355,352,1341,366,1342,393,1322,407,1355,432,1376,416,1388,384,1377,351" />
+  <area shape="poly" title="Hyperion from Legend of the Galactic Heroes" coords="2669,300,2672,341,2618,373,2533,384,2529,356,2498,357,2498,317,2534,263,2585,308" />
+  <area shape="rect" title="Yusaku Godai from Maison Ikkoku" coords="944,935,974,1016" />
+  <area shape="rect" title="Shun Mitaka from Maison Ikkoku" coords="864,935,901,1011" />
+  <area shape="rect" title="Kate Masseau from Macross Plus" coords="1817,1011,1847,1096" />
+  <area shape="rect" title="Comda Bromco from The Super Dimension Fortress Macross" coords="1307,1019,1338,1093" />
+  <area shape="rect" title="Morgan Masseau from Macross Plus" coords="1769,1005,1814,1096" />
+  <area shape="rect" title="Kiriya (illusion) from El-Hazard: The Magnificent World" coords="2997,1752,3041,1815" />
+  <area shape="rect" title="Handmaiden from El-Hazard: The Magnificent World" coords="2320,1749,2360,1825" />
+  <area shape="rect" title="Handmaiden from El-Hazard: The Magnificent World" coords="1752,1752,1792,1835" />
+  <area shape="rect" title="Ura from El-Hazard: The Magnificent World" coords="2043,1795,2078,1818" />
+  <area shape="rect" title="Fatora Venus from El-Hazard: The Magnificent World" coords="2043,1764,2078,1792" />
+  <area shape="rect" title="Makoto Mizuhara (disguise) from El-Hazard: The Magnificent World" coords="1999,1757,2040,1830" />
+  <area shape="rect" title="Loli Dosel from The Super Dimension Fortress Macross" coords="1269,1026,1304,1094" />
+  <area shape="rect" title="Warera Nantes from The Super Dimension Fortress Macross" coords="1228,1021,1266,1098" />
+  <area shape="rect" title="Lynn Minmay (Paradise Lost) from The Super Dimension Fortress Macross" coords="1015,1022,1051,1096" />
+  <area shape="rect" title="Lynn Minmay (Nyan Nyan waitress) from The Super Dimension Fortress Macross" coords="970,1023,1012,1098" />
+  <area shape="rect" title="Lynn Minmay (ordinary clothes) from The Super Dimension Fortress Macross" coords="932,1019,967,1106" />
+  <area shape="rect" title="Lynn Minmay from The Super Dimension Fortress Macross: Flash Back 2012" coords="1141,1023,1180,1099" />
+  <area shape="rect" title="Lynn Minmay (first concert) from The Super Dimension Fortress Macross: Do You Remember Love?" coords="1053,1021,1095,1094" />
+  <area shape="rect" title="Princess Serenity from Sailor Moon" coords="2320,1502,2355,1589" />
+  <area shape="rect" title="Ken Nakajima from You're Under Arrest!" coords="2019,929,2067,1012" />
+  <area shape="rect" title="Yawara Inokuma from Yawara! A Fashionable Judo Girl!" coords="3435,1012,3477,1100" />
+  <area shape="rect" title="Miyuki Kobayakawa from You're Under Arrest!" coords="1982,934,2016,1009" />
+  <area shape="rect" title="Natsumi Tsujimoto from You're Under Arrest!" coords="1944,938,1979,1004" />
+  <area shape="rect" title="Yoriko Nikaido from You're Under Arrest!" coords="1899,939,1940,1007" />
+  <area shape="rect" title="Hikozaemon Otaki from Oh My Goddess!" coords="1708,929,1766,1016" />
+  <area shape="rect" title="Toraichi Tamiya from Oh My Goddess!" coords="1643,928,1705,1015" />
+  <area shape="rect" title="Yuzo Takaya from Gunbuster" coords="1445,692,1486,777" />
+  <area shape="rect" title="Linda Yamamoto from Gunbuster" coords="1816,695,1856,770" />
+  <area shape="rect" title="Manna from Royal Space Force: The Wings of Honneamise" coords="1406,714,1442,777" />
+  <area shape="rect" title="Rally Vincent from Riding Bean" coords="3022,612,3059,679" />
+  <area shape="rect" title="Mai Shiranui from Fatal Fury" coords="1532,536,1587,624" />
+  <area shape="rect" title="Sansuke from El-Hazard: The Magnificent World" coords="2363,1747,2437,1820" />
+  <area shape="rect" title="Nahato from El-Hazard: The Magnificent World" coords="2919,1770,2950,1828" />
+  <area shape="rect" title="Kiriya from El-Hazard: The Magnificent World" coords="2954,1760,2994,1816" />
+  <area shape="rect" title="Galus from El-Hazard: The Magnificent World" coords="2877,1759,2916,1830" />
+  <area shape="rect" title="Ifurita from El-Hazard: The Magnificent World" coords="1795,1751,1855,1834" />
+  <area shape="rect" title="Rune Venus from El-Hazard: The Magnificent World" coords="1859,1758,1903,1837" />
+  <area shape="rect" title="Alielle Relrye from El-Hazard: The Magnificent World" coords="2081,1769,2117,1826" />
+  <area shape="rect" title="Miz Mishtal from El-Hazard: The Magnificent World" coords="2227,1753,2271,1829" />
+  <area shape="rect" title="Afura Mann from El-Hazard: The Magnificent World" coords="2177,1753,2224,1830" />
+  <area shape="rect" title="Queen Diva from El-Hazard: The Magnificent World" coords="1211,1753,1263,1834" />
+  <area shape="rect" title="Shayla-Shayla from El-Hazard: The Magnificent World" coords="2120,1757,2174,1827" />
+  <area shape="rect" title="Masamichi Fujisawa from El-Hazard: The Magnificent World" coords="2273,1754,2317,1825" />
+  <area shape="rect" title="Nanami Jinnai from El-Hazard: The Magnificent World" coords="1906,1759,1946,1838" />
+  <area shape="rect" title="Makoto Mizuhara from El-Hazard: The Magnificent World" coords="1950,1759,1996,1838" />
+  <area shape="rect" title="Katsuhiko Jinnai from El-Hazard: The Magnificent World" coords="1030,1649,1084,1720" />
+  <area shape="poly" title="Fujiko Mine from Lupin III" coords="3728,1086,3711,1005,3754,1003,3773,1048,3770,1084" />
+  <area shape="poly" title="Big Mama from Sorcerer Hunters" coords="3319,666,3383,665,3412,726,3404,774,3300,768,3301,707" />
+  <area shape="poly" title="Tatewaki Kuno from Ranma ½" coords="272,1058,294,1052,316,1069,306,1121,270,1097" />
+  <area shape="poly" title="Ranma Saotome from Ranma ½" coords="233,1010,276,1012,273,1050,233,1050" />
+  <area shape="poly" title="Azusa Shiratori from Ranma ½" coords="158,976,199,964,198,1015,154,1023" />
+  <area shape="poly" title="Jasmine from Ranma ½: Big Trouble in Nekonron, China" coords="159,896,243,899,241,946,155,972,129,952,159,949" />
+  <area shape="rect" title="Lychee from Ranma ½: Big Trouble in Nekonron, China" coords="105,879,154,946" />
+  <area shape="rect" title="Olba Frost from After War Gundam X" coords="3390,1180,3425,1256" />
+  <area shape="rect" title="Shagia Frost from After War Gundam X" coords="3340,1172,3387,1257" />
+  <area shape="rect" title="Roybea Loy from After War Gundam X" coords="3296,1176,3337,1251" />
+  <area shape="rect" title="Witz Sou from After War Gundam X" coords="3255,1177,3293,1252" />
+  <area shape="rect" title="Garrod Ran from After War Gundam X" coords="3212,1182,3252,1253" />
+  <area shape="rect" title="Tiffa Adill from After War Gundam X" coords="3173,1179,3209,1253" />
+  <area shape="rect" title="Chay from Mobile Suit Gundam 0080: War in the Pocket" coords="3133,1179,3170,1264" />
+  <area shape="poly" title="Telcott from Mobile Suit Gundam 0080: War in the Pocket" coords="3087,1183,3087,1254,3111,1266,3132,1266,3131,1178" />
+  <area shape="poly" title="Dorothy from Mobile Suit Gundam 0080: War in the Pocket" coords="3086,1186,3086,1254,3074,1275,3061,1274,3048,1245,3039,1189" />
+  <area shape="poly" title="Alfred Izuruha from Mobile Suit Gundam 0080: War in the Pocket" coords="3006,1190,3038,1189,3046,1246,3006,1259" />
+  <area shape="rect" title="Christina Mackenzie from Mobile Suit Gundam 0080: War in the Pocket" coords="2967,1178,3003,1258" />
+  <area shape="rect" title="Bernard Wiseman from Mobile Suit Gundam 0080: War in the Pocket" coords="2918,1174,2964,1257" />
+  <area shape="rect" title="Degwin Zabi from Mobile Suit Gundam" coords="2793,1177,2840,1260" />
+  <area shape="rect" title="Kycilia Zabi from Mobile Suit Gundam" coords="2751,1180,2790,1261" />
+  <area shape="rect" title="Dozle Zabi from Mobile Suit Gundam" coords="2712,1171,2748,1261" />
+  <area shape="rect" title="Zenna Zabi from Mobile Suit Gundam" coords="2677,1179,2709,1261" />
+  <area shape="rect" title="Icelina Eschonbach from Mobile Suit Gundam" coords="2638,1182,2674,1261" />
+  <area shape="rect" title="Garma Zabi from Mobile Suit Gundam" coords="2598,1183,2635,1262" />
+  <area shape="rect" title="Gihren Zabi from Mobile Suit Gundam" coords="2560,1180,2595,1263" />
+  <area shape="poly" title="Letz Cofan from Mobile Suit Gundam" coords="2418,1263,2387,1265,2388,1204,2418,1195" />
+  <area shape="poly" title="Sleggar Law from Mobile Suit Gundam" coords="2249,1166,2234,1176,2234,1264,2280,1265,2280,1201" />
+  <area shape="rect" title="Beltorchika Irma from Mobile Suit Zeta Gundam" coords="1842,1181,1878,1263" />
+  <area shape="rect" title="Rosamia Badam from Mobile Suit Zeta Gundam" coords="1798,1181,1839,1261" />
+  <area shape="rect" title="Reccoa Londe from Mobile Suit Zeta Gundam" coords="1761,1182,1795,1263" />
+  <area shape="rect" title="Emma Sheen from Mobile Suit Zeta Gundam" coords="1724,1183,1758,1263" />
+  <area shape="rect" title="Fa Yuiry from Mobile Suit Zeta Gundam" coords="1686,1183,1721,1262" />
+  <area shape="rect" title="Four Murasame from Mobile Suit Zeta Gundam" coords="1644,1182,1683,1263" />
+  <area shape="rect" title="Kamille Bidan from Mobile Suit Zeta Gundam" coords="1603,1182,1641,1264" />
+  <area shape="rect" title="&#39;Quattro Bajeena&#39; from Mobile Suit Zeta Gundam" coords="1552,1182,1600,1263" />
+  <area shape="rect" title="Paptimus Scirocco from Mobile Suit Zeta Gundam" coords="1502,1182,1549,1263" />
+  <area shape="rect" title="Sarah Zabiarov from Mobile Suit Zeta Gundam" coords="1463,1185,1499,1263" />
+  <area shape="rect" title="Lila Milla Rira from Mobile Suit Zeta Gundam" coords="1421,1185,1460,1262" />
+  <area shape="rect" title="Bask Om from Mobile Suit Zeta Gundam" coords="1365,1180,1418,1261" />
+  <area shape="rect" title="Jerid Messa from Mobile Suit Zeta Gundam" coords="1328,1181,1362,1261" />
+  <area shape="rect" title="Mouar Pharaoh from Mobile Suit Zeta Gundam" coords="1286,1181,1325,1262" />
+  <area shape="poly" title="Glemy Toto from Mobile Suit Gundam ZZ" coords="1236,1180,1244,1199,1247,1267,1200,1261,1199,1181" />
+  <area shape="rect" title="Chara Soon from Mobile Suit Gundam ZZ" coords="1153,1182,1196,1261" />
+  <area shape="rect" title="Illia Pazom from Mobile Suit Gundam ZZ" coords="1112,1183,1150,1261" />
+  <area shape="rect" title="Haman Karn from Mobile Suit Gundam ZZ" coords="1064,1183,1109,1267" />
+  <area shape="rect" title="Mashymre Cello from Mobile Suit Gundam ZZ" coords="1010,1182,1061,1262" />
+  <area shape="rect" title="Emary Ounce from Mobile Suit Gundam ZZ" coords="967,1185,1007,1261" />
+  <area shape="rect" title="Ple Two from Mobile Suit Gundam ZZ" coords="925,1186,964,1258" />
+  <area shape="poly" title="Elpeo Ple from Mobile Suit Gundam ZZ" coords="881,1194,904,1185,923,1188,924,1258,883,1254" />
+  <area shape="rect" title="Elle Vianno from Mobile Suit Gundam ZZ" coords="836,1186,876,1266" />
+  <area shape="rect" title="Leina Ashta from Mobile Suit Gundam ZZ" coords="798,1186,832,1266" />
+  <area shape="rect" title="Judau Ashta from Mobile Suit Gundam ZZ" coords="756,1188,794,1263" />
+  <area shape="rect" title="Roux Louka from Mobile Suit Gundam ZZ" coords="708,1183,752,1257" />
+  <area shape="rect" title="Iino Abbav from Mobile Suit Gundam ZZ" coords="660,1179,704,1254" />
+  <area shape="rect" title="Beecha Oleg from Mobile Suit Gundam ZZ" coords="614,1178,657,1256" />
+  <area shape="rect" title="Mondo Agake from Mobile Suit Gundam ZZ" coords="569,1185,610,1258" />
+  <area shape="rect" title="Rezin Schnyder from Mobile Suit Gundam: Char&#39;s Counterattack" coords="2070,1098,2112,1178" />
+  <area shape="rect" title="Gyunei Guss from Mobile Suit Gundam: Char&#39;s Counterattack" coords="2026,1099,2066,1175" />
+  <area shape="rect" title="Nanai Miguel from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1984,1105,2023,1174" />
+  <area shape="rect" title="Char Anzable from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1928,1106,1981,1175" />
+  <area shape="rect" title="Amuro Ray from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1885,1106,1925,1176" />
+  <area shape="rect" title="Chan Agi from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1844,1106,1882,1176" />
+  <area shape="rect" title="Cheimin Noa from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1801,1099,1840,1178" />
+  <area shape="rect" title="Mirai Yashima from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1761,1099,1798,1179" />
+  <area shape="rect" title="Bright Noa from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1711,1097,1758,1180" />
+  <area shape="rect" title="Hathaway Noa from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1670,1102,1708,1179" />
+  <area shape="rect" title="Quess Paraya from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1623,1102,1667,1179" />
+  <area shape="rect" title="Kayra Su from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1581,1100,1619,1179" />
+  <area shape="rect" title="Astonaige Medoz from Mobile Suit Gundam: Char&#39;s Counterattack" coords="1536,1106,1578,1179" />
+  <area shape="rect" title="Karen Joshua from Mobile Suit Gundam: The 08th MS Team" coords="1494,1106,1533,1178" />
+  <area shape="rect" title="Eledore Massis from Mobile Suit Gundam: The 08th MS Team" coords="1447,1104,1490,1182" />
+  <area shape="rect" title="Shiro Amada from Mobile Suit Gundam: The 08th MS Team" coords="1400,1103,1443,1176" />
+  <area shape="poly" title="Kiki Rosita from Mobile Suit Gundam: The 08th MS Team" coords="1354,1116,1396,1108,1399,1167,1364,1180" />
+  <area shape="poly" title="Argo Gulskii from Mobile Suit G Gundam" coords="1291,1179,1350,1171,1350,1122,1326,1096,1301,1096,1286,1131" />
+  <area shape="rect" title="George de Sand from Mobile Suit G Gundam" coords="1241,1101,1283,1186" />
+  <area shape="rect" title="Chibodee Crocket from Mobile Suit G Gundam" coords="1197,1106,1237,1177" />
+  <area shape="rect" title="Sai Saici from Mobile Suit G Gundam" coords="1153,1116,1194,1178" />
+  <area shape="rect" title="Rain Mikamura from Mobile Suit G Gundam" coords="1108,1100,1147,1180" />
+  <area shape="rect" title="Odelo Henrik from Mobile Suit Victory Gundam" coords="1012,1099,1049,1178" />
+  <area shape="circle" title="Haro from Mobile Suit Victory Gundam" coords="953,1125,16" />
+  <area shape="rect" title="Karlmann Dukartuse from Mobile Suit Victory Gundam" coords="934,1147,971,1182" />
+  <area shape="poly" title="Flanders from Mobile Suit Victory Gundam" coords="893,1158,905,1166,906,1182,881,1192,879,1180" />
+  <area shape="poly" title="Marbet Fingerhat from Mobile Suit Victory Gundam" coords="856,1103,890,1102,893,1154,876,1180,858,1177" />
+  <area shape="rect" title="Uso Ewin from Mobile Suit Victory Gundam" coords="816,1113,853,1182" />
+  <area shape="rect" title="Shakti Kareen from Mobile Suit Victory Gundam" coords="771,1113,812,1184" />
+  <area shape="rect" title="Katejina Loos from Mobile Suit Victory Gundam" coords="727,1107,767,1179" />
+  <area shape="poly" title="Super Atragon from Super Atragon" coords="848,199,945,265,1079,230,1060,175,941,158,931,116" />
+  <area shape="rect" title="Kunzite from Sailor Moon" coords="2024,1665,2067,1754" />
+  <area shape="rect" title="Zoisite from Sailor Moon" coords="2072,1674,2114,1761" />
+  <area shape="rect" title="Zoisite from Sailor Moon" coords="1914,1667,1955,1756" />
+  <area shape="rect" title="Jadeite from Sailor Moon" coords="1866,1669,1910,1755" />
+  <area shape="rect" title="Queen Beryl from Sailor Moon" coords="1959,1657,2019,1749" />
+  <area shape="rect" title="Kei from Akira" coords="218,1263,255,1359" />
+  <area shape="rect" title="Zeiram from Iria: Zeiram the Animation" coords="1889,839,1977,936" />
+  <area shape="rect" title="Iria from Iria: Zeiram the Animation" coords="1826,845,1886,937" />
+  <area shape="rect" title="Tora from Ushio and Tora" coords="1024,766,1163,855" />
+  <area shape="rect" title="Ushio Aotsuki from Ushio and Tora" coords="1060,860,1134,938" />
+  <area shape="poly" title="Mugi from Dirty Pair" coords="300,781,137,645,78,731,125,785" />
+  <area shape="rect" title="Bean Bandit from Riding Bean" coords="3061,609,3107,676" />
+  <area shape="rect" title="Alita from Battle Angel Alita" coords="2983,613,3020,679" />
+  <area shape="rect" title="Daisuke Ido from Battle Angel Alita" coords="2934,592,2979,684" />
+  <area shape="rect" title="Cammy White from Street Fighter II: The Animated Movie" coords="1642,546,1683,619" />
+  <area shape="rect" title="Chun-Li from Street Fighter II: The Animated Movie" coords="1590,542,1639,619" />
+  <area shape="rect" title="Seska from Orion" coords="423,594,476,668" />
+  <area shape="rect" title="Captain Nemo from Nadia: The Secret of Blue Water" coords="1397,226,1460,324" />
+  <area shape="poly" title="Annapuma and Unipuma from Dominion: Tank Police" coords="3586,1338,3674,1334,3689,1385,3673,1426,3626,1427,3594,1402" />
+  <area shape="rect" title="Susano Orbatos from Orion" coords="301,642,380,724" />
+  <area shape="rect" title="Yakumo Fuji from 3x3 Eyes" coords="332,543,393,604" />
+  <area shape="rect" title="Pai from 3x3 Eyes" coords="185,536,232,606" />
+  <area shape="poly" title="Princess Kahm from Outlanders" coords="315,333,359,314,378,385,342,402" />
+  <area shape="poly" title="Varga from Luna Varga" coords="643,409,724,408,779,454,769,539,622,539,616,454" />
+  <area shape="rect" title="Princess Luna from Luna Varga" coords="652,342,712,403" />
+  <area shape="rect" title="Eva Friedal from Magnetic Rose" coords="1610,65,1690,124" />
+  <area shape="poly" title="Mehve from Nausicaa of the Valley of the Wind" coords="1500,245,1516,281,1565,249,1570,189,1563,186,1557,243" />
+  <area shape="rect" title="Ihrie from Ruin Explorers" coords="2997,683,3050,770" />
+  <area shape="rect" title="Fam from Ruin Explorers" coords="2949,689,2993,768" />
+  <area shape="rect" title="Eudial from Sailor Moon" coords="2908,1501,2946,1590" />
+  <area shape="rect" title="Kaolinite from Sailor Moon" coords="2866,1501,2905,1592" />
+  <area shape="poly" title="Gateau Mocha from Sorcerer Hunters" coords="3199,685,3224,678,3246,707,3246,770,3201,767" />
+  <area shape="rect" title="Marron Glace from Sorcerer Hunters" coords="3250,682,3287,768" />
+  <area shape="rect" title="Tira Misu from Sorcerer Hunters" coords="3102,682,3144,764" />
+  <area shape="rect" title="Chocolate Misu from Sorcerer Hunters" coords="3149,674,3193,771" />
+  <area shape="rect" title="Carrot Glace from Sorcerer Hunters" coords="3055,681,3097,764" />
+  <area shape="poly" title="Daisaku Kusama from Giant Robo: The Animation" coords="2472,389,2436,390,2434,424,2450,442,2472,436" />
+  <area shape="rect" title="Ginrei from Giant Robo: The Animation" coords="2483,363,2524,419" />
+  <area shape="poly" title="Giant Robo from Giant Robo: The Animation" coords="2201,432,2142,470,2144,510,2196,514,2195,471,2216,448,2290,458,2504,449,2592,452,2550,412,2453,447,2399,391,2330,395,2284,455" />
+  <area shape="rect" title="P-chan from Ranma ½" coords="201,993,228,1028" />
+  <area shape="poly" title="Girl Ranma from Ranma ½" coords="233,1054,270,1053,267,1095,234,1094,227,1062" />
+  <area shape="rect" title="Ail from Sailor Moon" coords="2615,1499,2655,1590" />
+  <area shape="rect" title="An from Sailor Moon" coords="2574,1504,2612,1591" />
+  <area shape="rect" title="Moonlight Knight from Sailor Moon" coords="2230,1493,2274,1593" />
+  <area shape="rect" title="Souichi Tomoe from Sailor Moon" coords="1823,1417,1861,1497" />
+  <area shape="rect" title="Motoki Furuhata from Sailor Moon" coords="1778,1419,1820,1494" />
+  <area shape="poly" title="Mamoru Chiba from Sailor Moon" coords="1279,1420,1279,1480,1320,1480,1307,1449,1317,1427,1309,1420" />
+  <area shape="rect" title="Rei Hino from Sailor Moon" coords="1198,1422,1233,1502" />
+  <area shape="rect" title="Harumi from The Irresponsible Captain Tylor" coords="2111,1831,2151,1910" />
+  <area shape="poly" title="Azalyn from The Irresponsible Captain Tylor" coords="2992,1844,3027,1819,3053,1852,3033,1868,3016,1866" />
+  <area shape="rect" title="Harold Katori from The Irresponsible Captain Tylor" coords="2432,1829,2479,1915" />
+  <area shape="rect" title="Yumi Hanner from The Irresponsible Captain Tylor" coords="2194,1834,2238,1913" />
+  <area shape="rect" title="Emi Hanner from The Irresponsible Captain Tylor" coords="2154,1835,2191,1912" />
+  <area shape="rect" title="Dr. Kitaguchi from The Irresponsible Captain Tylor" coords="2482,1829,2541,1910" />
+  <area shape="poly" title="Happosai from Ranma ½" coords="129,1146,170,1159,158,1191,107,1189,95,1159" />
+  <area shape="poly" title="Soun Tendo from Ranma ½" coords="313,1007,311,961,280,960,272,1004" />
+  <area shape="rect" title="Lynn Minmay (final battle) from The Super Dimension Fortress Macross: Do You Remember Love?" coords="1098,1022,1138,1095" />
+  <area shape="poly" title="Kim Kyung Hwa from The Irresponsible Captain Tylor" coords="2336,1828,2385,1829,2372,1856,2379,1910,2336,1912" />
+  <area shape="rect" title="Kojiro Sakai from The Irresponsible Captain Tylor" coords="2061,1830,2108,1909" />
+  <area shape="poly" title="Makoto Yamamoto from The Irresponsible Captain Tylor" coords="2405,1817,2431,1843,2429,1920,2404,1901,2383,1911,2376,1853,2388,1828" />
+  <area shape="rect" title="Kikka Kitamoto from Mobile Suit Gundam" coords="2419,1192,2454,1261" />
+  <area shape="rect" title="Yuriko Star from The Irresponsible Captain Tylor" coords="2240,1832,2277,1910" />
+  <area shape="poly" title="Katz Hawin from Mobile Suit Gundam" coords="2373,1198,2387,1209,2386,1268,2356,1272,2355,1205" />
+  <area shape="rect" title="Lalah Sune from Mobile Suit Gundam" coords="2457,1188,2509,1262" />
+  <area shape="rect" title="Pixy Misa from Magical Girl Pretty Sammy" coords="2127,696,2177,775" />
+  <area shape="rect" title="Pretty Sammy from Magical Girl Pretty Sammy" coords="2179,693,2247,775" />
+  <area shape="rect" title="Crowley Hamon from Mobile Suit Gundam" coords="2843,1177,2878,1263" />
+  <area shape="rect" title="Sayla Mass from Mobile Suit Gundam" coords="1920,1179,1958,1263" />
+  <area shape="rect" title="Ryu Jose from Mobile Suit Gundam" coords="2119,1172,2157,1266" />
+  <area shape="rect" title="Mirai Yashima from Mobile Suit Gundam" coords="2044,1181,2080,1264" />
+  <area shape="rect" title="Matilda Ajan from Mobile Suit Gundam" coords="2196,1180,2231,1264" />
+  <area shape="rect" title="Kai Shiden from Mobile Suit Gundam" coords="2083,1181,2116,1265" />
+  <area shape="rect" title="Hayato Kobayashi from Mobile Suit Gundam" coords="2160,1190,2193,1264" />
+  <area shape="rect" title="Bright Noa from Mobile Suit Gundam" coords="2005,1178,2041,1264" />
+  <area shape="rect" title="Moruk Lap Lamiz from The Super Dimension Fortress Macross" coords="1422,1018,1456,1100" />
+  <area shape="rect" title="Quamzin Kravshera from The Super Dimension Fortress Macross" coords="1459,1018,1499,1101" />
+  <area shape="poly" title="Keroppi" coords="87,2103,120,2097,136,2124,132,2144,84,2147" />
+  <area shape="poly" title="Hello Kitty" coords="158,2094,203,2091,202,2124,188,2146,162,2145" />
+  <area shape="poly" title="Moldiver from Moldiver" coords="603,336,563,293,475,309,522,393,582,379" />
+  <area shape="poly" title="Leo from Jungle Emperor" coords="116,1049,132,1063,121,1109,85,1110,66,1067" />
+  <area shape="poly" title="Mr. Invader from Urusei Yatsura" coords="934,1347,948,1369,935,1426,978,1429,968,1359,978,1342,957,1327" />
+  <area shape="poly" title="Ten from Urusei Yatsura" coords="1264,1355,1246,1369,1254,1398,1271,1403,1284,1372,1279,1357" />
+  <area shape="rect" title="Presea from Magic Knight Rayearth" coords="2584,2267,2629,2340" />
+  <area shape="rect" title="Kosaku Hatanaka from One-Pound Gospel" coords="2497,2345,2540,2431" />
+  <area shape="rect" title="Sister Angela from One-Pound Gospel" coords="2450,2346,2495,2431" />
+  <area shape="rect" title="Umi Ryuuzaki from Magic Knight Rayearth" coords="2502,2272,2543,2341" />
+  <area shape="rect" title="Fuu Hououji from Magic Knight Rayearth" coords="2415,2272,2455,2343" />
+  <area shape="rect" title="Hikaru Shidou from Magic Knight Rayearth" coords="2458,2275,2500,2342" />
+  <area shape="rect" title="Mokona from Magic Knight Rayearth" coords="2545,2269,2582,2332" />
+  <area shape="rect" title="Guyver I from Bio-Booster Armor Guyver" coords="3089,528,3144,606" />
+  <area shape="rect" title="VesVes from Sailor Moon" coords="3224,1500,3272,1587" />
+  <area shape="rect" title="JunJun from Sailor Moon" coords="3379,1503,3441,1588" />
+  <area shape="rect" title="CereCere from Sailor Moon" coords="3322,1502,3377,1587" />
+  <area shape="rect" title="PallaPalla from Sailor Moon" coords="3274,1502,3320,1587" />
+  <area shape="poly" title="Yuri from Dirty Pair Flash" coords="3673,1106,3725,1101,3743,1180,3667,1180" />
+  <area shape="poly" title="Kei from Dirty Pair Flash" coords="3756,1096,3792,1105,3795,1179,3747,1175,3732,1110" />
+  <area shape="poly" title="Koichi Zenigata from Lupin III" coords="3521,998,3543,996,3579,1025,3570,1092,3499,1097,3487,1064" />
+  <area shape="poly" title="Goemon Ishikawa XIII from Lupin III" coords="3775,1007,3806,1005,3823,1028,3818,1054,3826,1091,3774,1088,3774,1048,3765,1025" />
+  <area shape="poly" title="Daisuke Jigen from Lupin III" coords="3828,1011,3855,1012,3876,1045,3879,1095,3830,1094,3821,1049" />
+  <area shape="poly" title="Arsène Lupin III from Lupin III" coords="3670,1003,3697,1004,3715,1026,3726,1088,3677,1092,3665,1050" />
+  <area shape="rect" title="Frau Bow from Mobile Suit Gundam" coords="1881,1179,1917,1264" />
+  <area shape="rect" title="Shuutaro Mendo from Urusei Yatsura" coords="825,1344,865,1435" />
+  <area shape="rect" title="Smith Toren from Gunbuster" coords="1611,689,1648,779" />
+  <area shape="rect" title="Reiko Kashiwara from Gunbuster" coords="1489,695,1526,778" />
+  <area shape="rect" title="Shinobu Miyake from Urusei Yatsura" coords="1285,1348,1321,1417" />
+  <area shape="rect" title="Artemis from Sailor Moon" coords="1307,1482,1322,1517" />
+  <area shape="rect" title="Luna from Sailor Moon" coords="1278,1481,1304,1517" />
+  <area shape="rect" title="Human Luna from Sailor Moon" coords="2513,1499,2571,1591" />
+  <area shape="poly" title="Luna P from Sailor Moon" coords="1369,1450,1385,1474,1380,1506,1357,1505,1356,1480,1368,1467" />
+  <area shape="rect" title="Prince Endymion from Sailor Moon" coords="2358,1498,2402,1595" />
+  <area shape="rect" title="Queen Serenity from Sailor Moon" coords="2277,1493,2318,1588" />
+  <area shape="rect" title="Super Sailor Chibi Moon from Sailor Moon" coords="2456,1506,2511,1591" />
+  <area shape="rect" title="Super Sailor Moon from Sailor Moon" coords="2404,1502,2454,1587" />
+  <area shape="rect" title="Sailor Chibi Moon from Sailor Moon" coords="1934,1508,1975,1597" />
+  <area shape="rect" title="Shingo Tsukino from Sailor Moon" coords="1618,1436,1653,1509" />
+  <area shape="rect" title="Kenji Tsukino from Sailor Moon" coords="1699,1419,1737,1497" />
+  <area shape="rect" title="Ikuko Tsukino from Sailor Moon" coords="1655,1419,1697,1505" />
+  <area shape="rect" title="Gurio Umino from Sailor Moon" coords="1492,1424,1537,1514" />
+  <area shape="rect" title="Naru Osaka from Sailor Moon" coords="1454,1423,1490,1514" />
+  <area shape="poly" title="Reinhard von Lohengramm from Legend of the Galactic Heroes" coords="2721,251,2731,220,2762,208,2833,249,2806,283,2745,293" />
+  <area shape="poly" title="Yang Wen-li from Legend of the Galactic Heroes" coords="2599,214,2586,248,2588,305,2645,301,2639,215" />
+  <area shape="rect" title="Riquinni Nonderaiko from Royal Space Force: The Wings of Honneamise" coords="1371,696,1404,781" />
+  <area shape="rect" title="Shirotsugh Lhadatt from Royal Space Force: The Wings of Honneamise" coords="1324,686,1369,782" />
+  <area shape="rect" title="Captain Tatsumi Tashiro from Gunbuster" coords="1566,689,1609,779" />
+  <area shape="rect" title="Kimiko Higuchi from Gunbuster" coords="1528,699,1564,776" />
+  <area shape="rect" title="Kazumi Amano from Gunbuster" coords="1698,697,1734,777" />
+  <area shape="rect" title="Guld Goa Bowman from Macross Plus" coords="1850,1005,1897,1103" />
+  <area shape="rect" title="Myung Fang Lone from Macross Plus" coords="1899,1011,1939,1103" />
+  <area shape="rect" title="Isamu Alva Dyson from Macross Plus" coords="1941,1008,1984,1102" />
+  <area shape="rect" title="Golg Boddole Zer from The Super Dimension Fortress Macross" coords="1502,1019,1554,1103" />
+  <area shape="rect" title="Exsedol Folmo from The Super Dimension Fortress Macross" coords="1341,1031,1376,1109" />
+  <area shape="rect" title="Lynn Kaifun from The Super Dimension Fortress Macross" coords="1183,1013,1225,1102" />
+  <area shape="rect" title="Soichiro from Maison Ikkoku" coords="978,984,1023,1020" />
+  <area shape="rect" title="Kentaro Ichinose from Maison Ikkoku" coords="1122,965,1152,1019" />
+  <area shape="rect" title="Hanae Ichinose from Maison Ikkoku" coords="1065,944,1120,1019" />
+  <area shape="rect" title="Akemi Roppongi from Maison Ikkoku" coords="1025,940,1063,1019" />
+  <area shape="rect" title="Yotsuya from Maison Ikkoku" coords="977,927,1023,982" />
+  <area shape="rect" title="Kyoko Otonashi from Maison Ikkoku" coords="904,936,941,1013" />
+  <area shape="rect" title="Milia Fallyna from The Super Dimension Fortress Macross" coords="736,1017,774,1104" />
+  <area shape="rect" title="Kim Kabirov from The Super Dimension Fortress Macross" coords="616,1020,652,1100" />
+  <area shape="rect" title="Shammy Milliome from The Super Dimension Fortress Macross" coords="577,1025,614,1100" />
+  <area shape="rect" title="Vanessa Laird from The Super Dimension Fortress Macross" coords="534,1016,575,1100" />
+  <area shape="rect" title="Bruno J. Global from The Super Dimension Fortress Macross" coords="476,1008,532,1100" />
+  <area shape="rect" title="Hayao Kakizaki from The Super Dimension Fortress Macross" coords="654,1012,698,1100" />
+  <area shape="rect" title="Claudia LaSalle from The Super Dimension Fortress Macross" coords="817,1014,852,1109" />
+  <area shape="rect" title="Roy Focker from The Super Dimension Fortress Macross" coords="776,1008,815,1109" />
+  <area shape="rect" title="Hikaru Ichijyo from The Super Dimension Fortress Macross" coords="893,1015,929,1109" />
+  <area shape="rect" title="Linna Yamazaki (business casual) from Bubblegum Crisis" coords="650,1904,688,1994" />
+  <area shape="rect" title="Nene Romanova (police dress uniform) from Bubblegum Crisis" coords="691,1909,734,1986" />
+  <area shape="rect" title="Sylia Stingray(red business suit) from Bubblegum Crisis" coords="612,1905,647,1988" />
+  <area shape="rect" title="Priss Asagiri (stage outfit) from Bubblegum Crisis" coords="560,1906,608,1988" />
+  <area shape="poly" title="Shotaro Kaneda from Akira" coords="411,1358,257,1357,256,1317,345,1267,409,1322" />
+  <area shape="poly" title="Jean Rocque Raltique from Nadia: The Secret of Blue Water" coords="1226,255,1227,333,1266,332,1285,272,1272,249" />
+  <area shape="poly" title="Nadia La Arwall from Nadia: The Secret of Blue Water" coords="1316,324,1341,325,1353,350,1338,365,1339,393,1304,412,1290,387,1307,331" />
+  <area shape="rect" title="Naga the White Serpent from Slayers" coords="2316,846,2363,935" />
+  <area shape="rect" title="Kiyone Makibi from Tenchi Universe" coords="2303,685,2345,775" />
+  <area shape="rect" title="Mihoshi Kuramitsu from Tenchi Muyo" coords="2347,680,2384,776" />
+  <area shape="rect" title="Fio Piccolo from Porco Rosso" coords="2981,332,3016,396" />
+  <area shape="circle" title="Porco Rosso from Porco Rosso" coords="2957,363,22" />
+  <area shape="poly" title="Space colony from Mobile Suit Gundam" coords="380,150,267,129,166,187,181,73,101,73,107,129,137,110,157,138,112,168,115,219,71,282,99,358,227,420,178,331,257,291,318,292" />
+  <area shape="rect" title="Koichiro Ohta from Gunbuster" coords="1650,690,1696,778" />
+  <area shape="poly" title="Galaxy Express 999 from Galaxy Express 999" coords="3516,201,3307,403,3148,394,3005,308,2890,122,2965,78,2995,139,3068,264,3159,336,3276,357,3333,319,3335,289,3288,245,3276,175,3317,129" />
+  <area shape="poly" title="Arcadia from Captain Harlock" coords="3068,221,3163,245,3250,209,3276,214,3289,254,3330,291,3320,322,3285,348,3193,340,3079,267" />
+  <area shape="rect" title="Sharon Apple from Macross Plus" coords="2189,1005,2423,1094" />
+  <area shape="rect" title="Char Aznable from Mobile Suit Gundam" coords="2512,1182,2557,1263" />
+  <area shape="poly" title="Haro from Mobile Suit Gundam" coords="2367,1181,2409,1169,2410,1196,2384,1204" />
+  <area shape="rect" title="Misty May from Otaku no Video" coords="1989,528,2035,615" />
+  <area shape="rect" title="&#39;Daicon Girl&#39; from the DAICON IV opening" coords="1942,528,1987,614" />
+  <area shape="rect" title="Sailor Mars from Sailor Moon" coords="1892,1502,1932,1597" />
+  <area shape="rect" title="Sailor Jupiter from Sailor Moon" coords="1849,1500,1890,1587" />
+  <area shape="rect" title="Sailor Saturn from Sailor Moon" coords="1699,1499,1761,1586" />
+  <area shape="rect" title="Sailor Uranus from Sailor Moon" coords="1763,1497,1805,1588" />
+  <area shape="rect" title="Sailor Neptune from Sailor Moon" coords="1807,1500,1847,1587" />
+  <area shape="rect" title="Sailor Pluto from Sailor Moon" coords="2121,1494,2170,1597" />
+  <area shape="rect" title="Sailor Venus from Sailor Moon" coords="2075,1497,2118,1597" />
+  <area shape="poly" title="Sailor Mercury from Sailor Moon" coords="2034,1507,2073,1504,2073,1587,2047,1600" />
+  <area shape="poly" title="Sailor Moon from Sailor Moon" coords="1986,1504,2028,1505,2040,1556,2041,1590,1977,1589" />
+  <area shape="rect" title="Tuxedo Mask from Sailor Moon" coords="2173,1487,2227,1592" />
+  <area shape="rect" title="Setsuna Meiou from Sailor Moon" coords="1105,1413,1148,1507" />
+  <area shape="rect" title="Michiru Kaiou from Sailor Moon" coords="1060,1420,1103,1507" />
+  <area shape="rect" title="Haruka Tenou from Sailor Moon" coords="1016,1416,1058,1487" />
+  <area shape="rect" title="Makoto Kino from Sailor Moon" coords="1151,1419,1195,1508" />
+  <area shape="rect" title="Girl Ryo-Oh-Ki from Tenchi Muyo" coords="2771,690,2817,764" />
+  <area shape="rect" title="Ryo-Oh-Ki from Tenchi Muyo" coords="2568,669,2627,690" />
+  <area shape="rect" title="Keiichi Morisato from Oh My Goddess!" coords="1392,935,1427,995" />
+  <area shape="rect" title="Britai Kridanik from The Super Dimension Fortress Macross" coords="1378,997,1419,1101" />
+  <area shape="rect" title="Domon Kasshu from Mobile Suit G Gundam" coords="1053,1097,1105,1178" />
+  <area shape="rect" title="Lina Inverse from Slayers" coords="2365,850,2408,934" />
+  <area shape="rect" title="Gourry Gabriev from Slayers" coords="2410,845,2467,933" />
+  <area shape="rect" title="Washu Hakubi from Tenchi Muyo" coords="2387,680,2435,776" />
+  <area shape="rect" title="Ryoko Hakubi from Tenchi Muyo" coords="2437,672,2479,773" />
+  <area shape="poly" title="Kasumi Tendo from Ranma ½" coords="323,959,353,965,369,988,347,1010,316,1007,313,969" />
+  <area shape="poly" title="Shampoo from Ranma ½" coords="280,1007,345,1012,353,1036,317,1067,297,1050,275,1055" />
+  <area shape="poly" title="Panda Genma from Ranma ½" coords="263,1196,296,1152,301,1121,269,1099,238,1094,220,1124,227,1172" />
+  <area shape="poly" title="Ukyo Kuonji from Ranma ½" coords="125,1054,173,1079,202,1066,188,1050,195,1023,148,1029,117,1013" />
+  <area shape="poly" title="Mousse from Ranma ½" coords="345,958,361,965,376,1002,388,1001,415,984,412,963,379,928,387,913,369,900,350,911" />
+  <area shape="poly" title="Duck Mousse from Ranma ½" coords="164,872,189,896,216,896,241,866,231,850,186,863,165,852" />
+  <area shape="poly" title="Kodachi Kuno from Ranma ½" coords="245,890,271,926,301,920,313,900,347,907,353,856,333,824,309,826,275,852,246,871" />
+  <area shape="poly" title="Cologne from Ranma ½" coords="213,819,253,799,313,820,275,847" />
+  <area shape="rect" title="Son Goku (child) from Dragon Ball" coords="1454,561,1483,622" />
+  <area shape="rect" title="Son Goku (adult) from Dragon Ball" coords="1409,536,1451,623" />
+  <area shape="rect" title="Justy Ueki Tylor from The Irresponsible Captain Tylor" coords="2280,1828,2333,1910" />
+  <area shape="poly" title="Maetel from Galaxy Express 999" coords="3033,99,2999,137,3065,220,3065,122" />
+  <area shape="rect" title="Skuld (with bugs) from Oh My Goddess!" coords="1536,929,1639,1016" />
+  <area shape="rect" title="Urd from Oh My Goddess!" coords="1485,929,1532,1015" />
+  <area shape="rect" title="Belldandy from Oh My Goddess!" coords="1429,931,1483,1016" />
+  <area shape="rect" title="Misa Hayase from The Super Dimension Fortress Macross" coords="854,1014,891,1098" />
+  <area shape="poly" title="Lum Invader from Urusei Yatsura" coords="1219,1341,1264,1349,1242,1369,1251,1394,1244,1421,1222,1418,1223,1391,1202,1383,1201,1354" />
+  <area shape="rect" title="Sailor V from Codename: Sailor V" coords="1527,1584,1582,1671" />
+  <area shape="rect" title="Honey Kisaragi from Cutie Honey" coords="3000,529,3039,608" />
+  <area shape="rect" title="Sasami Masaki Jurai from Tenchi Muyo" coords="2566,692,2626,758" />
+  <area shape="rect" title="Ayeka Masaki Jurai from Tenchi Muyo" coords="2522,682,2563,772" />
+  <area shape="rect" title="Tsunami from Tenchi Muyo" coords="2249,682,2301,776" />
+  <area shape="poly" title="Harlock from Captain Harlock" coords="3073,156,3147,160,3185,203,3154,237,3098,223,3074,180" />
+  <area shape="rect" title="Amuro Ray from Mobile Suit Gundam" coords="1961,1178,2002,1264" />
+  <area shape="poly" title="Chibiusa from Sailor Moon" coords="1308,1448,1317,1436,1365,1438,1367,1466,1353,1478,1354,1508,1329,1498" />
+  <area shape="poly" title="Ami Mizuno from Sailor Moon" coords="1391,1425,1410,1434,1408,1515,1381,1507,1387,1472,1368,1440" />
+  <area shape="rect" title="Minako Aino from Sailor Moon" coords="1410,1423,1452,1514" />
+  <area shape="rect" title="Usagi Tsukino from Sailor Moon" coords="1236,1424,1276,1517" />
+  <area shape="rect" title="Doraemon from Doraemon" coords="3443,1534,3490,1585" />
+  <area shape="rect" title="Maximilian Jenius from The Super Dimension Fortress Macross" coords="700,1021,734,1100" />
+  <area shape="poly" title="Ryoga Hibiki from Ranma ½" coords="3741,1899,3779,1900,3771,1992,3732,1992,3713,1934" />
+  <area shape="rect" title="Piccolo from Dragon Ball" coords="1485,536,1529,620" />
+  <area shape="rect" title="Bulma from Dragon Ball" coords="1343,545,1378,620" />
+  <area shape="rect" title="Puar from Dragon Ball" coords="1381,563,1406,623" />
+  <area shape="rect" title="Jung Freud from Gunbuster" coords="1776,695,1813,768" />
+  <area shape="rect" title="Noriko Takaya from Gunbuster" coords="1736,700,1772,777" />
+  <area shape="rect" title="Hikari Horaki from Neon Genesis Evangelion" coords="2921,940,2962,1007" />
+  <area shape="rect" title="Kensuke Aida from Neon Genesis Evangelion" coords="2965,937,3006,1007" />
+  <area shape="rect" title="Toji Suzuhara from Neon Genesis Evangelion" coords="3010,930,3056,1006" />
+  <area shape="rect" title="Rei Ayanami from Neon Genesis Evangelion" coords="3060,934,3095,1012" />
+  <area shape="rect" title="Asuka Langley Soryu from Neon Genesis Evangelion" coords="3099,934,3142,1011" />
+  <area shape="rect" title="Shinji Ikari from Neon Genesis Evangelion" coords="3147,931,3185,1008" />
+  <area shape="poly" title="Pen-pen from Neon Genesis Evangelion" coords="3195,969,3216,968,3228,1014,3184,1009" />
+  <area shape="poly" title="Misato Katsuragi from Neon Genesis Evangelion" coords="3212,926,3258,926,3258,1016,3230,1016" />
+  <area shape="rect" title="Ryoji Kaji from Neon Genesis Evangelion" coords="3259,923,3295,1014" />
+  <area shape="rect" title="Ritsuko Akagi from Neon Genesis Evangelion" coords="3298,929,3335,1014" />
+  <area shape="rect" title="Maya Ibuki from Neon Genesis Evangelion" coords="3341,931,3376,999" />
+  <area shape="rect" title="Gendo Ikari from Neon Genesis Evangelion" coords="3379,926,3426,1009" />
+  <area shape="poly" title="Eiko Magami from Project A-Ko" coords="3477,933,3508,934,3509,989,3518,1003,3465,1008" />
+  <area shape="poly" title="Shiko Kotobuki from Project A-Ko" coords="3533,935,3571,956,3566,991,3513,987,3510,947" />
+  <area shape="poly" title="Biko Daitokuji from Project A-Ko" coords="3736,939,3719,976,3753,1002,3792,1001,3817,954,3802,937" />
+  <area shape="poly" title="Catbus from My Neighbor Totoro" coords="3746,859,3727,937,3804,935,3812,944,3887,943,3889,862" />
+  <area shape="poly" title="Mei Kusakabe from My Neighbor Totoro" coords="3517,283,3561,291,3549,338,3516,333,3504,293" />
+  <area shape="poly" title="Satsuki Kusakabe from My Neighbor Totoro" coords="3566,293,3597,298,3608,335,3581,359,3549,342" />
+  <area shape="poly" title="Totoro from My Neighbor Totoro" coords="3571,207,3523,244,3519,279,3601,293,3610,330,3687,246" />
+  <area shape="rect" title="Black Jack from Black Jack" coords="3042,530,3085,604" />
+  <area shape="rect" title="Tenchi Masaki from Tenchi Muyo" coords="2481,685,2521,773" />
+  <area shape="poly" title="Astro from Astro Boy" coords="2639,367,2625,402,2630,437,2651,440,2687,404,2657,368" />
+  <area shape="poly" title="EVA-02 from Neon Genesis Evangelion" coords="2541,169,2528,214,2537,246,2583,251,2608,179" />
+  <area shape="poly" title="EVA-01 from Neon Genesis Evangelion" coords="2644,176,2645,230,2675,250,2722,231,2728,184,2709,156,2675,149" />
+  <area shape="poly" title="Yamato from Space Battleship Yamato" coords="2207,164,2161,320,2241,322,2356,205,2368,81,2314,94,2284,158,2250,201,2243,159" />
+  <area shape="poly" title="Phoenix from Phoenix" coords="2172,374,2199,424,2284,454,2323,372,2207,330" />
+  <area shape="poly" title="SDF-1 Macross from The Super Dimension Fortress Macross" coords="1893,253,1905,81,2037,78,2054,249,2089,249,2193,431,2155,459,2045,335,2136,525,2032,526,2002,382,1945,381,1926,530,1822,524,1856,432,1770,432" />
+  <area shape="poly" title="Nausicaa from Nausicaa of the Valley of the Wind" coords="1515,171,1483,242,1555,240,1566,172" />
+  <area shape="poly" title="Pazu from Castle in the Sky" coords="1173,113,1202,113,1217,130,1196,164,1171,160" />
+  <area shape="poly" title="Sheeta from Castle in the Sky" coords="1121,119,1130,169,1168,158,1169,112" />
+  <area shape="poly" title="Jiji from Kiki&#39;s Delivery Service" coords="816,309,830,306,844,331,823,335" />
+  <area shape="poly" title="Kiki from Kiki&#39;s Delivery Service" coords="832,303,862,349,901,347,902,311,876,264,833,280" />
+  <area shape="poly" title="Tetsuo Shima from Akira" coords="531,460,544,550,487,552,490,464" />
+  <area shape="poly" title="Yuri from Dirty Pair" coords="407,863,405,801,372,787,339,818,365,865" />
+  <area shape="poly" title="Kei from Dirty Pair" coords="434,817,453,867,499,865,501,786,460,774" />
+  <area shape="poly" title="Ohmu from Nausicaa of the Valley of the Wind" coords="112,563,143,570,140,625,75,628,74,589" />
+</map>
+
+<p>And scattered soot spirits, Ohmu, Fuchikomas, and Zentraedi Battlepods.</p>
+
+
+
+</body></html>
